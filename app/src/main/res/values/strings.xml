@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TrackYourTrek</string>
+    <string name="edtUsername">Enter Username</string>
+    <string name="edtPassword">Enter Password</string>
+    <string name="btnLogin">Login</string>
+    <string name="lblRegister">Click Here To Register</string>
+    <string name="btnRegister">Register</string>
+</resources>
