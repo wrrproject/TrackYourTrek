@@ -3,6 +3,13 @@
     <string name="edtUsername">Enter Username</string>
     <string name="edtPassword">Enter Password</string>
     <string name="btnLogin">Login</string>
-    <string name="lblRegister">Click Here To Register</string>
+    <string name="lblRegister">"Not a user yet? "</string>
     <string name="btnRegister">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="thanks_for_taking_the_first_step">Thanks for taking the first step...</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="back">Back</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.trackyourtrek;
+package com.example.trackyourtrek.Activites;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.trackyourtrek.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
