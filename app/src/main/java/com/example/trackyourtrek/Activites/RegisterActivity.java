@@ -33,8 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
-        edtFName = findViewById(R.id.edtFName);
-        edtLName = findViewById(R.id.edtLName);
+        edtFName = findViewById(R.id.edtFirstName);
+        edtLName = findViewById(R.id.edtLastName);
         edtEmail = findViewById(R.id.edtEmail);
     }
 
