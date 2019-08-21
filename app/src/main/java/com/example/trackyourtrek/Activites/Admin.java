@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,18 @@ public class Admin extends AppCompatActivity {
 
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
             adapterChallenge.add(Challenge.newInstance());
+
+        } else if(currentVar.equalsIgnoreCase("Milstone")){
+
+        }
+    }
+    public void Edit(View view) {
+        if(currentVar.equalsIgnoreCase("Walker")){
+            if(selectedItem!=null)
+                adapterWalkers.edit((Walker)selectedItem,this);
+
+        }else  if(currentVar.equalsIgnoreCase("Challenge")){
+
 
         } else if(currentVar.equalsIgnoreCase("Milstone")){
 
@@ -140,5 +153,25 @@ public class Admin extends AppCompatActivity {
         super.onBackPressed();
         else
             setContentView((int)stack.pop());
+    }
+    private static final int REQ_EDIT = 69;
+    // Method called when the request returns with a result
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if((requestCode == REQ_EDIT) && (resultCode == RESULT_OK)) {
+            // the sum request intent has returned a result and the result was ok (as
+            // opposed to being canceled), so do something with the result
+            if(currentVar.equalsIgnoreCase("Walker")){
+                Walker newOne = (Walker)data.getExtras().getSerializable("walker");
+                if(selectedItem!=null)
+                    adapterWalkers.replace((Walker)selectedItem,newOne);
+
+            }else  if(currentVar.equalsIgnoreCase("Challenge")){
+
+
+            } else if(currentVar.equalsIgnoreCase("Milstone")){
+
+            }
+        }
     }
 }

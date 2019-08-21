@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -54,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/thanks_for_taking_the_first_step"
+                android:text="@string/walker_editing_mode"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -70,8 +70,7 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@+id/right"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/left"
-                tools:layout_editor_absoluteY="250dp" />
+                app:layout_constraintStart_toStartOf="@+id/left" />
 
             <EditText
                 android:id="@+id/edtPassword3"
@@ -148,8 +147,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:onClick="registerUser"
-                android:text="@string/sign_up"
+                android:onClick="changeWalker"
+                android:text="@string/change"
                 app:layout_constraintEnd_toStartOf="@+id/right"
                 app:layout_constraintStart_toStartOf="@+id/left"
                 app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
@@ -159,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:onClick="onReturnClicked"
                 android:text="@string/back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/right"

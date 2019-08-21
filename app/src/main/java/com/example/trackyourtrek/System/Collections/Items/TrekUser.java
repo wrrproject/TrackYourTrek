@@ -1,6 +1,8 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
-public abstract class TrekUser {
+import java.io.Serializable;
+
+public abstract class TrekUser implements Serializable {
     private String username,password,fName,lName,email;
 
     public TrekUser(String username, String password, String fName, String lName, String email) {

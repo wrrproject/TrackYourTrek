@@ -1,5 +1,6 @@
 package com.example.trackyourtrek.System.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trackyourtrek.Activites.Admin;
+import com.example.trackyourtrek.Activites.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 
@@ -34,7 +37,7 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
             cardView = view.getRootView();
             // Get references to commonly used Views in the layout.
             lblName = view.findViewById(R.id.lblName);
-            lblUsername = view.findViewById(R.id.lblName);
+            lblUsername = view.findViewById(R.id.lblUserName);
             lblEmail=view.findViewById(R.id.lblTotalDistance);
             imgAvatar = view.findViewById(R.id.imgAvatar);
         }
@@ -47,8 +50,8 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
                     Admin.selectedItem=walker;
                 }
             });
-            lblName.setText("Name: "+walker.getfName() +" " +walker.getlName());
-            lblUsername.setText("Username: " + walker.getUsername()); // force conversion to string
+            lblName.setText(walker.getfName() +" " +walker.getlName());
+            lblUsername.setText(walker.getUsername()); // force conversion to string
             lblEmail.setText(walker.getEmail());
             // Set image. Might not exist depending on the layout used. So check for null
             // values before setting.
@@ -145,6 +148,21 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         walkers.remove(object);
         // Notify view of underlying data changed.
         notifyItemRemoved(i);
+    }
+    public void edit(Walker walker, AppCompatActivity app){
+        Intent intent = new Intent(app, EditWalkerActivity.class);
+        intent.putExtra("walker",walker);
+        app.startActivityForResult(intent,69);
+    }
+    public void replace(Walker old, Walker newOne){
+        int i = walkers.indexOf(old);
+        if(i>=0){
+
+            if(newOne!=null){
+                walkers.remove(i);
+                walkers.add(i,newOne);}
+            notifyItemChanged(i);
+        }
     }
 }
 
