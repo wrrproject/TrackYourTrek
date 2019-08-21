@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Adapters.ChallengeAdapter;
+import com.example.trackyourtrek.System.Adapters.MilestoneAdapter;
 import com.example.trackyourtrek.System.Adapters.WalkersAdapter;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
+import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
@@ -28,6 +30,7 @@ public class Admin extends AppCompatActivity {
         ////Adapte Declaration
         WalkersAdapter adapterWalkers;
         ChallengeAdapter adapterChallenge;
+        MilestoneAdapter adapterMilestone;
         private String currentVar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,8 @@ public class Admin extends AppCompatActivity {
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
             adapterChallenge.add(Challenge.newInstance());
 
-        } else if(currentVar.equalsIgnoreCase("Milstone")){
-
+        } else if(currentVar.equalsIgnoreCase("Milestone")){
+            adapterMilestone.add(new Milestone("ID","Location","fact"));
         }
     }
     public void Edit(View view) {
@@ -54,8 +57,9 @@ public class Admin extends AppCompatActivity {
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
 
 
-        } else if(currentVar.equalsIgnoreCase("Milstone")){
-
+        } else if(currentVar.equalsIgnoreCase("Milestone")){
+            if(selectedItem!=null)
+            adapterMilestone.edit((Milestone) selectedItem,this);
         }
     }
     public void delete(View view) {
@@ -66,8 +70,8 @@ public class Admin extends AppCompatActivity {
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
             adapterChallenge.remove(selectedItem);
 
-        } else if(currentVar.equalsIgnoreCase("Milstone")){
-
+        } else if(currentVar.equalsIgnoreCase("Milestone")){
+            adapterMilestone.remove(selectedItem);
         }
     }
 
@@ -127,6 +131,34 @@ public class Admin extends AppCompatActivity {
 
         //Set var type
         currentVar="Challenge";
+    }
+    public void viewMilestones(View view) {
+        setContentView(R.layout.cardsviewer);
+        stack.push(R.layout.activity_admin);
+        TextView heading = findViewById(R.id.heading);
+        heading.setText("Milestone List");
+        //Intialize Adapter
+        adapterMilestone= new MilestoneAdapter(TrackYourTrek.getMilestones());
+
+        // How will the individual items be laid out in the collection view?
+        RecyclerView.LayoutManager layoutManager;
+        layoutManager = new GridLayoutManager(getApplicationContext(),2);
+
+        // Assign adapter to "list" viewer
+        RecyclerView lstPeople = findViewById(R.id.recyclerView);
+        lstPeople.setLayoutManager(layoutManager);
+        lstPeople.setAdapter(adapterMilestone);
+
+        // Set extra parameters if needed.
+        // This decorator adds extra spacing around all items in the recycle view.
+        lstPeople.addItemDecoration(new EqualSpaceItemDecoration(18));
+
+        // Attach item selected event handler
+        RecyclerView.OnItemTouchListener listener = new RecyclerView.SimpleOnItemTouchListener();
+        lstPeople.addOnItemTouchListener(listener);
+
+        //Set var type
+        currentVar="Milestone";
     }
 
     public class EqualSpaceItemDecoration extends RecyclerView.ItemDecoration {

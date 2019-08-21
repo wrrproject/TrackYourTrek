@@ -1,8 +1,9 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Milestone {
+public class Milestone implements Serializable {
     private String milestoneID, location,fact;
     private ArrayList<Challenge> usingChallenges = new ArrayList<>();
     public Milestone(String milestoneID, String location, String fact) {

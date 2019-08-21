@@ -1,7 +1,8 @@
 package com.example.trackyourtrek.System.Collections.Items;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-public class Challenge {
+public class Challenge implements Serializable {
 private PriorityQueue<Journey> journey;
 private ArrayList<Walker> patricipates ;
 private String challengeID,name,totalDistance;

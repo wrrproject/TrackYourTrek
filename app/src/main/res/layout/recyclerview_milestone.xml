@@ -5,7 +5,7 @@
     android:id="@+id/cardView"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    app:cardBackgroundColor="#B6FD64"
+    app:cardBackgroundColor="#00BCD4"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="#BFFFFFFF"
-            android:text="[Name]"
+            android:text="[ID]"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="#BFFFFFFF"
-            android:text="[Total Distance]"
+            android:text="[Location]"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

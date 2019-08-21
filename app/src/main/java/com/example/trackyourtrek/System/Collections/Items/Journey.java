@@ -1,6 +1,8 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
-public class Journey implements Comparable<Journey> {
+import java.io.Serializable;
+
+public class Journey implements Comparable<Journey>, Serializable {
     private Challenge challenge;
     private Milestone milestone;
 

@@ -27,8 +27,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
             super(view);
             cardView = view.getRootView();
             // Get references to commonly used Views in the layout.
-            lblName = view.findViewById(R.id.lblUserName);
-            lblTotalDistance = view.findViewById(R.id.lblTotalDistance);
+            lblName = view.findViewById(R.id.lblID);
+            lblTotalDistance = view.findViewById(R.id.lbllocation);
         }
 
         public void setChallenge(Challenge challenge) {

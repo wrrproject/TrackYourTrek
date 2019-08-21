@@ -37,8 +37,8 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
             cardView = view.getRootView();
             // Get references to commonly used Views in the layout.
             lblName = view.findViewById(R.id.lblName);
-            lblUsername = view.findViewById(R.id.lblUserName);
-            lblEmail=view.findViewById(R.id.lblTotalDistance);
+            lblUsername = view.findViewById(R.id.lblID);
+            lblEmail=view.findViewById(R.id.lbllocation);
             imgAvatar = view.findViewById(R.id.imgAvatar);
         }
 

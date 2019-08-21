@@ -20,12 +20,12 @@
             android:layout_marginEnd="8dp"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="@+id/lblTotalDistance"
+            app:layout_constraintEnd_toEndOf="@+id/lbllocation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lblUserName"
+            android:id="@+id/lblID"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -37,16 +37,17 @@
             app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
         <TextView
-            android:id="@+id/lblTotalDistance"
+            android:id="@+id/lbllocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="#BFFFFFFF"
             android:text="[email]"
+            android:textSize="8sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblUserName" />
+            app:layout_constraintTop_toBottomOf="@+id/lblID" />
 
         <TextView
             android:id="@+id/lblName"
@@ -58,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.515"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTotalDistance" />
+            app:layout_constraintTop_toBottomOf="@+id/lbllocation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
