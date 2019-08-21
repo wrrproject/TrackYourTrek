@@ -95,4 +95,8 @@ boolean active;
     public void setActive(boolean active) {
         this.active = active;
     }
+    public static Challenge newInstance(){
+        Challenge challenge = new Challenge("id","name","total",false);
+        return challenge;
+    }
 }

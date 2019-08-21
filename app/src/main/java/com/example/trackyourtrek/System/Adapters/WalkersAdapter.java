@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerViewHolder> {
+
     /**
      * You need to define a View Holder, which will hold the data in its view for
      * a specific person.
@@ -26,20 +28,25 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         public TextView lblUsername;
         public ImageView imgAvatar;
         public Walker walker;
-
+        public View cardView;
         public WalkerViewHolder(@NonNull View view) {
             super(view);
-
+            cardView = view.getRootView();
             // Get references to commonly used Views in the layout.
             lblName = view.findViewById(R.id.lblName);
-            lblUsername = view.findViewById(R.id.lblUsername);
-            lblEmail=view.findViewById(R.id.lblEmail);
+            lblUsername = view.findViewById(R.id.lblName);
+            lblEmail=view.findViewById(R.id.lblTotalDistance);
             imgAvatar = view.findViewById(R.id.imgAvatar);
         }
 
         public void setWalker(Walker walker) {
             this.walker = walker;
-
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Admin.selectedItem=walker;
+                }
+            });
             lblName.setText("Name: "+walker.getfName() +" " +walker.getlName());
             lblUsername.setText("Username: " + walker.getUsername()); // force conversion to string
             lblEmail.setText(walker.getEmail());
@@ -132,11 +139,12 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         notifyItemChanged(walkers.size() - 1);
     }
 
-    public void remove(int position) {
+    public void remove(Object object) {
         // Remove the person.
-        walkers.remove(position);
+        int i = walkers.indexOf(object);
+        walkers.remove(object);
         // Notify view of underlying data changed.
-        notifyItemRemoved(position);
+        notifyItemRemoved(i);
     }
 }
 

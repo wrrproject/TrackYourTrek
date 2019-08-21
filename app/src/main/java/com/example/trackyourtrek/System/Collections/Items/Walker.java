@@ -1,5 +1,8 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
+import android.view.View;
+
+import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.System.Collections.Group;
 
 import java.util.ArrayList;
@@ -12,6 +15,10 @@ public class Walker extends TrekUser {
     protected void joinChallenge(Challenge challenge){
         activeChallenges.add(challenge);
         history.add(new PriorityQueue<ProgressRecord>());
+    }
+    public static Walker newInstance(){
+        Walker walker = new Walker("username","password","fName","lName","email");
+        return walker;
     }
     protected void removeChallenge(Challenge challenge){
         int place = activeChallenges.indexOf(challenge);
@@ -60,4 +67,5 @@ public class Walker extends TrekUser {
     public String toString() {
         return "Walker ".concat(super.toString());
     }
+
 }
