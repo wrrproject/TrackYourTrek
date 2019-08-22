@@ -1,4 +1,4 @@
-package com.example.trackyourtrek;
+package com.example.trackyourtrek.Activites;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.trackyourtrek.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,8 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
-        edtFName = findViewById(R.id.edtFName);
-        edtLName = findViewById(R.id.edtLName);
+        edtFName = findViewById(R.id.edtFirstName);
+        edtLName = findViewById(R.id.edtLastName);
         edtEmail = findViewById(R.id.edtEmail);
     }
 
