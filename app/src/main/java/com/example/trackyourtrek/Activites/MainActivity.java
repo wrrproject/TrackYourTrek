@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         email=((TextView)findViewById(R.id.edtEmail)).getText().toString();
         password=((TextView)findViewById(R.id.edtPassword3)).getText().toString();
         Walker walker = new Walker(username,password,fname,lname,email);
-        TrackYourTrek.getInstance().addWalker(walker);
+        TrackYourTrek.getInstance().register(walker);
     }
 
     @Override

@@ -11,13 +11,13 @@ public class Milestone implements Serializable {
         this.location = location;
         this.fact = fact;
     }
-    protected void addChallenge(Challenge challenge){
+    public void addChallenge(Challenge challenge){
         usingChallenges.add(challenge);
     }
-    protected void removeChallenge(Challenge challenge){
+    public void removeChallenge(Challenge challenge){
         usingChallenges.remove(challenge);
     }
-    protected void cleanChallenges(){
+    public void cleanChallenges(){
         usingChallenges= new ArrayList<>();
 
     }

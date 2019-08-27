@@ -16,14 +16,15 @@ boolean active;
         journey= new PriorityQueue<Journey>();//Uses Journey compareTo
         patricipates = new ArrayList<>();
     }
-    private Journey findByDistance(int Distance){
+
+    public Journey findByDistance(int Distance){
         for (Journey journey:journey) {
             if(journey.getDistance()==Distance)
                 return journey;
         }
         return null;
     }
-    protected void addJourney(Journey journey){
+    public void addJourney(Journey journey){
         Journey journeyNew = findByDistance(journey.getDistance());
         if(journeyNew==null){
             this.journey.add(journey);
@@ -31,21 +32,21 @@ boolean active;
             journeyNew.setMilestone(journey.getMilestone());
         }
     }
-    protected void removeJourney(Journey journey){
+    public void removeJourney(Journey journey){
         this.journey.remove(journey);
     }
-    protected void cleanJourneys(){
+    public void cleanJourneys(){
         journey=new PriorityQueue<>();
     }
-    protected void addParticipates(Walker walker){
+    public void addParticipates(Walker walker){
         if(!patricipates.contains(walker)){
             patricipates.add(walker);
         }
     }
-    protected void removeParticipates(Walker walker){
+    public void removeParticipates(Walker walker){
         patricipates.remove(journey);
     }
-    protected void cleanParticipates(){
+    public void cleanParticipates(){
         patricipates= new ArrayList<>();
     }
 
