@@ -15,6 +15,7 @@ import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.Activites.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
+import com.example.trackyourtrek.System.TrackYourTrek;
 
 import java.util.List;
 import java.util.Random;
@@ -30,11 +31,12 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         public TextView lblEmail;
         public TextView lblUsername;
         public ImageView imgAvatar;
+
         public Walker walker;
         public View cardView;
         public WalkerViewHolder(@NonNull View view) {
             super(view);
-            cardView = view.getRootView();
+            cardView = view.findViewById(R.id.cardView);
             // Get references to commonly used Views in the layout.
             lblName = view.findViewById(R.id.lblName);
             lblUsername = view.findViewById(R.id.lblID);
@@ -44,11 +46,9 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
 
         public void setWalker(Walker walker) {
             this.walker = walker;
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Admin.selectedItem=walker;
-                }
+            cardView.setOnTouchListener((view, motionEvent) -> {
+                Admin.selectedItem=walker;
+                return true;
             });
             lblName.setText(walker.getfName() +" " +walker.getlName());
             lblUsername.setText(walker.getUsername()); // force conversion to string
@@ -93,10 +93,9 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
     }
 
     // The collection of data that this adapter is currently displaying.
-    private final List<Walker> walkers;
-
-    public WalkersAdapter(List<Walker> walkers) {
-        this.walkers = walkers;
+    public static AppCompatActivity app;
+    public WalkersAdapter( AppCompatActivity appCompatActivity) {
+        app=appCompatActivity;
     }
 
     @NonNull
@@ -123,7 +122,7 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         // fill the data item's values into the view.
 
         // Get the data to be displayed
-        Walker person = walkers.get(position);
+        Walker person = TrackYourTrek.getWalkers().get(position);
 
         // Fill the data from person into the view.
         holder.setWalker(person);
@@ -132,35 +131,35 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
 
     @Override
     public int getItemCount() {
-        return walkers.size();
+        return TrackYourTrek.getWalkers().size();
     }
 
     public void add(Walker person) {
         // Add the person and notify the view of changes.
-        walkers.add(person);
+        TrackYourTrek.getInstance().register(Walker.newInstance());
         // In this case, specify WHICH person changed.
-        notifyItemChanged(walkers.size() - 1);
+        notifyItemChanged(TrackYourTrek.getWalkers().size() - 1);
     }
 
     public void remove(Object object) {
         // Remove the person.
-        int i = walkers.indexOf(object);
-        walkers.remove(object);
+        int i = TrackYourTrek.getWalkers().indexOf(object);
+        TrackYourTrek.getWalkers().remove(object);
         // Notify view of underlying data changed.
         notifyItemRemoved(i);
     }
-    public void edit(Walker walker, AppCompatActivity app){
+    public static void edit(Walker walker, AppCompatActivity app){
         Intent intent = new Intent(app, EditWalkerActivity.class);
         intent.putExtra("walker",walker);
         app.startActivityForResult(intent,69);
     }
     public void replace(Walker old, Walker newOne){
-        int i = walkers.indexOf(old);
+        int i = TrackYourTrek.getWalkers().indexOf(old);
         if(i>=0){
 
             if(newOne!=null){
-                walkers.remove(i);
-                walkers.add(i,newOne);}
+                TrackYourTrek.getWalkers().remove(i);
+                TrackYourTrek.getWalkers().add(i,newOne);}
             notifyItemChanged(i);
         }
     }

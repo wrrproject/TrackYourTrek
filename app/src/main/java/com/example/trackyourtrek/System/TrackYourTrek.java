@@ -27,6 +27,19 @@ public class TrackYourTrek {
     private static final ArrayList<Walker> walkers = new ArrayList<>();
     private static final ArrayList<Challenge> challenges = new ArrayList<>();
     private static final ArrayList<Milestone> milestones = new ArrayList<>();
+
+    public static ArrayList<Challenge> getChallenges() {
+        return challenges;
+    }
+
+    public static ArrayList<Milestone> getMilestones() {
+        return milestones;
+    }
+
+    public static ArrayList<Group> getGroups() {
+        return groups;
+    }
+
     private static final ArrayList<Group> groups = new ArrayList<>();
     private static final TrekAdmin admin = new TrekAdmin(ADMINUSERNAME,ADMINPASSWORD,"Dr. long","gong","drlongGong@gmail.com","0860030303");
 
@@ -122,10 +135,13 @@ public class TrackYourTrek {
     //Use Case; #B0100
     /**
      * <p>Register Walker Procedure</p>
+     * <p>Wont add if username already in the list...</p>
      * <p>Registers walker instance with static list</p>
      * @param walker walker to be added to list.
      */
     public void register(Walker walker){
+        Walker temp = findWalker(walker.getUsername());
+        if(temp==null)
         walkers.add(walker);
     }
 
@@ -221,7 +237,7 @@ public class TrackYourTrek {
 
     //Use Case; #B0700
     /**
-     * <p>Joi group procedure</p>
+     * <p>Join group procedure</p>
      * <p>Takes the id of the group searches for it and like wise for user name and the adds group to walker and walker to list of walkers for group</p>
      * @param groupID ID of thee group adding too
      * @param walkerUsername Username of walker being added
@@ -254,9 +270,12 @@ public class TrackYourTrek {
     /**
      * <p>Create group procedure</p>
      * <p>simple adds new group to groups list</p>
+     * <p>Wont add if the group has the same ID as another groups</p>
      * @param group group to be added
      */
     public void createGroup(Group group){
+        Group temp = findGroup(group.getGroupID());
+        if(temp==null)
         groups.add(group);
     }
 
@@ -269,6 +288,7 @@ public class TrackYourTrek {
      * @param challenge new challene to be added to the list
      */
     public void addChallenge(Challenge challenge){
+        if(findChallenge(challenge.getChallengeID())==null)
         challenges.add(challenge);
     }
 
@@ -367,6 +387,7 @@ public class TrackYourTrek {
      * @param milestone new milestone to be added to the list
      */
     public void addMilestone(Milestone milestone){
+        if(findMilestone(milestone.getMilestoneID())==null)
         milestones.add(milestone);
     }
 
@@ -396,6 +417,10 @@ public class TrackYourTrek {
         Challenge challenge = findChallenge(challengeID);
         if(challenge!=null){
             challenge.setJourney(journey);
+        }
+        //asigns the challenges tomilestones for integrity of data
+        for (Journey temp:journey) {
+            temp.getMilestone().addChallenge(temp.getChallenge());
         }
     }
     //Use Case; #C1100
@@ -453,6 +478,13 @@ public class TrackYourTrek {
         for (Milestone milestone:milestones) {
             if(milestone.getMilestoneID().equals(ID))
                     return milestone;
+        }
+        return null;
+    }
+    private Group findGroup(String ID){
+        for (Group group:groups) {
+            if(group.getGroupID().equals(ID))
+                return group;
         }
         return null;
     }

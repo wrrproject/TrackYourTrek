@@ -16,6 +16,7 @@ import com.example.trackyourtrek.Activites.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
+import com.example.trackyourtrek.System.TrackYourTrek;
 
 import java.util.List;
 import java.util.Random;
@@ -54,10 +55,9 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
     }
 
     // The collection of data that this adapter is currently displaying.
-    private final List<Milestone> milestones;
 
-    public MilestoneAdapter(List<Milestone> milestones) {
-        this.milestones = milestones;
+    public MilestoneAdapter() {
+
     }
 
     @NonNull
@@ -84,7 +84,7 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
         // fill the data item's values into the view.
 
         // Get the data to be displayed
-        Milestone milestone = milestones.get(position);
+        Milestone milestone = TrackYourTrek.getMilestones().get(position);
 
         // Fill the data from person into the view.
         holder.setMilestone(milestone);
@@ -93,20 +93,20 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
 
     @Override
     public int getItemCount() {
-        return milestones.size();
+        return TrackYourTrek.getMilestones().size();
     }
 
     public void add(Milestone milestone) {
         // Add the person and notify the view of changes.
-        milestones.add(milestone);
+        TrackYourTrek.getInstance().addMilestone(milestone);
         // In this case, specify WHICH person changed.
-        notifyItemChanged(milestones.size() - 1);
+        notifyItemChanged(TrackYourTrek.getMilestones().size() - 1);
     }
 
     public void remove(Object object) {
         // Remove the person.
-        int i = milestones.indexOf(object);
-        milestones.remove(object);
+        int i = TrackYourTrek.getMilestones().indexOf(object);
+        TrackYourTrek.getMilestones().remove(object);
         // Notify view of underlying data changed.
         notifyItemRemoved(i);
     }
@@ -115,12 +115,12 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
 
     }
     public void replace(Milestone old, Milestone newOne){
-        int i = milestones.indexOf(old);
+        int i = TrackYourTrek.getMilestones().indexOf(old);
         if(i>=0){
 
             if(newOne!=null){
-                milestones.remove(i);
-                milestones.add(i,newOne);}
+                TrackYourTrek.getMilestones().remove(i);
+                TrackYourTrek.getMilestones().add(i,newOne);}
             notifyItemChanged(i);
         }
     }

@@ -12,6 +12,7 @@ public class Milestone implements Serializable {
         this.fact = fact;
     }
     public void addChallenge(Challenge challenge){
+        if(usingChallenges.indexOf(challenge)<0)
         usingChallenges.add(challenge);
     }
     public void removeChallenge(Challenge challenge){

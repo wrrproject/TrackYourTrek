@@ -1,15 +1,21 @@
 package com.example.trackyourtrek.System.Adapters;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.trackyourtrek.Activites.Admin;
+import com.example.trackyourtrek.Activites.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
+import com.example.trackyourtrek.System.Collections.Items.Walker;
+import com.example.trackyourtrek.System.TrackYourTrek;
+
 import java.util.List;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
@@ -48,10 +54,9 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     }
 
     // The collection of data that this adapter is currently displaying.
-    private final List<Challenge> challenges;
 
-    public ChallengeAdapter( List<Challenge> challenges) {
-        this.challenges = challenges;
+    public ChallengeAdapter() {
+
     }
 
     @NonNull
@@ -78,7 +83,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         // fill the data item's values into the view.
 
         // Get the data to be displayed
-        Challenge person = challenges.get(position);
+        Challenge person = TrackYourTrek.viewChallenges().get(position);
 
         // Fill the data from person into the view.
         holder.setChallenge(person);
@@ -87,25 +92,30 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
 
     @Override
     public int getItemCount() {
-        return challenges.size();
+        return TrackYourTrek.viewChallenges().size();
     }
 
     public void add(Challenge challenge) {
         // Add the person and notify the view of changes.
-        challenges.add(challenge);
+        TrackYourTrek.getInstance().addChallenge(challenge);
         // In this case, specify WHICH person changed.
-        notifyItemChanged(challenges.size() - 1);
+        notifyItemChanged(TrackYourTrek.viewChallenges().size() - 1);
     }
 
     public void remove(Object object) {
         // Remove the person.
         if(object instanceof Challenge){
             Challenge challenge = (Challenge)object;
-        int i = challenges.indexOf(challenge);
-        challenges.remove(challenge);
+        int i = TrackYourTrek.viewChallenges().indexOf(challenge);
+            TrackYourTrek.viewChallenges().remove(challenge);
         // Notify view of underlying data changed.
         notifyItemRemoved(i);
         }
+    }
+    public static void edit(Challenge challenge, AppCompatActivity app){
+        Intent intent = new Intent(app, EditWalkerActivity.class);
+        intent.putExtra("challenge",challenge);
+        app.startActivityForResult(intent,69);
     }
 }
 

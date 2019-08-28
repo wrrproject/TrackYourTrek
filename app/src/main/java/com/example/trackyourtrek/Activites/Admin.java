@@ -81,7 +81,7 @@ public class Admin extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Walker User List");
         //Intialize Adapter
-        adapterWalkers= new WalkersAdapter(TrackYourTrek.getWalkers());
+        adapterWalkers= new WalkersAdapter(this);
 
         // How will the individual items be laid out in the collection view?
         RecyclerView.LayoutManager layoutManager;
@@ -110,7 +110,7 @@ public class Admin extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Challenges List");
         //Intialize Adapter
-        adapterChallenge= new ChallengeAdapter(TrackYourTrek.viewChallenges());
+        adapterChallenge= new ChallengeAdapter();
 
         // How will the individual items be laid out in the collection view?
         RecyclerView.LayoutManager layoutManager;
@@ -138,7 +138,7 @@ public class Admin extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Milestone List");
         //Intialize Adapter
-        adapterMilestone= new MilestoneAdapter(TrackYourTrek.viewMilestones());
+        adapterMilestone= new MilestoneAdapter();
 
         // How will the individual items be laid out in the collection view?
         RecyclerView.LayoutManager layoutManager;

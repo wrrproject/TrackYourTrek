@@ -74,8 +74,4 @@ public class EditWalkerActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        onReturnClicked(null);
-    }
 }
