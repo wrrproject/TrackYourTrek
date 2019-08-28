@@ -17,6 +17,27 @@ boolean active;
         patricipates = new ArrayList<>();
     }
 
+    /**
+     * Returns the journey at the distance in the journey list
+     * @param distance
+     * @return
+     */
+    public Journey findJourney(int distance){
+        for (Journey iterm:journey) {
+            if(iterm.getDistance()==distance){
+                return iterm;
+            }
+        }
+        return null;
+    }
+    public void setCHallenge(Challenge cHallenge){
+        setActive(cHallenge.active);
+        setJourney(cHallenge.journey);
+        setName(cHallenge.name);
+        setPatricipates(cHallenge.patricipates);
+        setTotalDistance(cHallenge.totalDistance);
+    }
+
     public Journey findByDistance(int Distance){
         for (Journey journey:journey) {
             if(journey.getDistance()==Distance)

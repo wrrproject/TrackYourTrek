@@ -27,7 +27,6 @@ public class TrackYourTrek {
     private static final ArrayList<Walker> walkers = new ArrayList<>();
     private static final ArrayList<Challenge> challenges = new ArrayList<>();
     private static final ArrayList<Milestone> milestones = new ArrayList<>();
-    private static final ArrayList<Journey> journeys = new ArrayList<>();
     private static final ArrayList<Group> groups = new ArrayList<>();
     private static final TrekAdmin admin = new TrekAdmin(ADMINUSERNAME,ADMINPASSWORD,"Dr. long","gong","drlongGong@gmail.com","0860030303");
 
@@ -170,10 +169,13 @@ public class TrackYourTrek {
      * <p>view progress function</p>
      * <p>Takes a walker in and returns the arraylist of proirty queues of progress reports</p>
      * <p>This sounds ikky but each proity queue relates a a active challenge the user is currently participating in</p>
-     * @param walker walker which has a progress needs to viewed
+     * @param walkerUsername walker which has a progress needs to viewed
      * @return progress f the walker
      */
-    public ArrayList<PriorityQueue<ProgressRecord>> viewProgress(Walker walker){
+    public ArrayList<PriorityQueue<ProgressRecord>> viewProgress(String walkerUsername){
+        Walker walker = findWalker(walkerUsername);
+        if(walker==null)
+            return null;
         return walker.getHistory();
     }
 
@@ -313,10 +315,50 @@ public class TrackYourTrek {
 
     /**
      * <p>Adds Journey procedure</p>
+     * <p>If journey already at the distance in challenges journey then it wont add, you will have to use edit journey for that</p>
+     * @param ChallengeID ID of challenge you wish to add the journey too.
      * @param journey new journey to bed added to list
      */
-    public void addJourney(Journey journey){
-        journeys.add(journey);
+    public void addJourney(String ChallengeID, Journey journey){
+        Challenge challenge = findChallenge(ChallengeID);
+        if(challenge!=null){
+            Journey temp = challenge.findByDistance(journey.getDistance());
+            if(temp==null){
+             challenge.addJourney(journey);
+            }
+        }
+
+    }
+
+    //Use Case; #C0800
+
+    /**
+     * <p>Edit Challenge Procedure</p>
+     * <p>Puts the given challenge at the give id in list.</p>
+     * @param ID
+     * @param challenge
+     */
+    public void updateChallenge(String ID, Challenge challenge){
+        Challenge challengeSearch = findChallenge(ID);
+        if(challengeSearch!=null){
+            challengeSearch.setCHallenge(challenge);
+        }
+    }
+
+    //Use Case; #C0700
+
+    /**
+     * <p>View Journey Function</p>
+     * <p>Takes a ID ofa challenge and rturns its journey on the system</p>
+     * @param challengeID
+     * @return journey of the challenge
+     */
+    public PriorityQueue<Journey> viewJourney(String challengeID){
+        Challenge challenge = findChallenge(challengeID);
+        if(challenge!=null){
+            return challenge.getJourney();
+        }
+        return null;
     }
 
     //Use Case; #C0800
@@ -328,6 +370,49 @@ public class TrackYourTrek {
         milestones.add(milestone);
     }
 
+    //Use Case; #C0900
+    /**
+     * <p>Remove milestone procedure</p>
+     * <p>Checks if its being used first in a journey, and if so doesnt remove it</p>
+     * @param milestoneID milestone to be removed from the list
+     */
+    public void removeMilestone(String  milestoneID){
+        Milestone milestone=findMilestone(milestoneID);
+        if(milestone==null){
+            return;
+        }
+        if(milestone.getUsingChallenges().size()==0)
+        milestones.remove(milestone);
+    }
+
+    //Use Case; #C1000
+    /**
+     * <p>update Journey procedure</p>
+     * <p>Takes the id of the challenge finds t on the system and puts the list of journeys there.</p>
+     * @param challengeID
+     * @param journey This is a priority queue of journeys!
+     */
+    public void updateJourney(String challengeID, PriorityQueue<Journey> journey){
+        Challenge challenge = findChallenge(challengeID);
+        if(challenge!=null){
+            challenge.setJourney(journey);
+        }
+    }
+    //Use Case; #C1100
+
+    /**
+     * <p>Remove journey procedure</p>
+     * <p>Removes all journeys in the list of the challenge on the system with the challenge ID give.</p>
+     * @param ChallengeID
+     */
+    public void removeJourney(String ChallengeID){
+        Challenge challenge = findChallenge(ChallengeID);
+        if(challenge!=null){
+            challenge.cleanJourneys();
+        }
+    }
+
+
     public void removeWalker(Walker walker){
         walkers.remove(walker);
     }
@@ -335,21 +420,7 @@ public class TrackYourTrek {
     public void removeChallenge(Challenge challenge){
         challenges.remove(challenge);
     }
-    //Use Case; #C0900
-    /**
-     * <p>Remove milestone procedure</p>
-     * @param milestoneID milestone to be removed from the list
-     */
-    public void removeMilestone(String  milestoneID){
-        Milestone milestone=null;
-        for (Milestone temp:milestones) {
-            if(temp.getMilestoneID().equals(milestoneID)){
-                milestone=temp;
-                break;
-            }
-        }
-        milestones.remove(milestone);
-    }
+
 
     public static ArrayList<Walker> getWalkers() {
         return walkers;
@@ -361,5 +432,28 @@ public class TrackYourTrek {
 
     private TrackYourTrek() {
 
+    }
+    private Walker findWalker(String username){
+        for (Walker walker:walkers) {
+            if(walker.getUsername().equals(username)){
+                return walker;
+            }
+        }
+        return null;
+    }
+    private Challenge findChallenge(String ID){
+        for (Challenge challenge:challenges) {
+            if(challenge.getChallengeID().equals(ID)){
+                return challenge;
+            }
+        }
+        return null;
+    }
+    private Milestone findMilestone(String ID){
+        for (Milestone milestone:milestones) {
+            if(milestone.getMilestoneID().equals(ID))
+                    return milestone;
+        }
+        return null;
     }
 }
