@@ -406,6 +406,24 @@ public class TrackYourTrek {
         milestones.remove(milestone);
     }
 
+    /**
+     * <p>Edit Milestone Procedure</p>
+     * <p>Takes old usernamer name finds the instance of the old record and putts new one in that is given.</p>
+     * @param ID
+     * @param milestone
+     */
+    public void editMilestone(String ID, Milestone milestone){
+        Milestone milestoneOld = findMilestone(ID);
+        if(milestone!=null){
+            milestoneOld.setMilestone(milestone);
+        }else{
+            milestones.add(milestone);
+        }
+
+    }
+
+
+
     //Use Case; #C1000
     /**
      * <p>update Journey procedure</p>

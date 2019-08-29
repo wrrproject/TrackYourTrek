@@ -161,6 +161,8 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
                 TrackYourTrek.getWalkers().remove(i);
                 TrackYourTrek.getWalkers().add(i,newOne);}
             notifyItemChanged(i);
+        }else{
+            TrackYourTrek.getWalkers().add(newOne);
         }
     }
 }

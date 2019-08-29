@@ -26,7 +26,7 @@ import java.util.Stack;
 
 public class Admin extends AppCompatActivity {
         public static Object selectedItem;
-    private static final Stack stack = new Stack();
+    public final Stack stack = new Stack();
         ////Adapte Declaration
         WalkersAdapter adapterWalkers;
         ChallengeAdapter adapterChallenge;
@@ -40,6 +40,7 @@ public class Admin extends AppCompatActivity {
 
     public void add(View view) {
         if(currentVar.equalsIgnoreCase("Walker")){
+            //Change to new user view
             adapterWalkers.add(Walker.newInstance());
 
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
@@ -74,7 +75,6 @@ public class Admin extends AppCompatActivity {
             adapterMilestone.remove(selectedItem);
         }
     }
-
     public void viewUsers(View view) {
         setContentView(R.layout.cardsviewer);
         stack.push(R.layout.activity_admin);
@@ -187,6 +187,7 @@ public class Admin extends AppCompatActivity {
             setContentView((int)stack.pop());
     }
     private static final int REQ_EDIT = 69;
+    private static final int REQ_MILE = 169;
     // Method called when the request returns with a result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -201,8 +202,10 @@ public class Admin extends AppCompatActivity {
             }else  if(currentVar.equalsIgnoreCase("Challenge")){
 
 
-            } else if(currentVar.equalsIgnoreCase("Milstone")){
-
+            } else if(currentVar.equalsIgnoreCase("Milestone")){
+                Milestone milestone=(Milestone)data.getExtras().getSerializable("milestone") ;
+                if(selectedItem!=null)
+                adapterMilestone.replace((Milestone)selectedItem,milestone);
             }
         }
     }

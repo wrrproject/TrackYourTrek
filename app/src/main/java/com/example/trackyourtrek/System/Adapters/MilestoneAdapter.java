@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.Activites.EditWalkerActivity;
+import com.example.trackyourtrek.Activites.editMilestone;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
@@ -111,8 +112,9 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
         notifyItemRemoved(i);
     }
     public void edit(Milestone milestone, AppCompatActivity app){
-       //Edit
-
+        Intent intent = new Intent(app, editMilestone.class);
+        intent.putExtra("milestone",milestone);
+        app.startActivityForResult(intent,69);
     }
     public void replace(Milestone old, Milestone newOne){
         int i = TrackYourTrek.getMilestones().indexOf(old);

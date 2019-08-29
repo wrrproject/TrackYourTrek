@@ -11,6 +11,11 @@ public class Milestone implements Serializable {
         this.location = location;
         this.fact = fact;
     }
+    public void setMilestone(Milestone milestone){
+        fact=milestone.getFact();
+        milestoneID=milestone.getMilestoneID();
+        location=milestone.getLocation();
+    }
     public void addChallenge(Challenge challenge){
         if(usingChallenges.indexOf(challenge)<0)
         usingChallenges.add(challenge);
