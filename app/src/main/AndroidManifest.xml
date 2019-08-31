@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activites.editMilestone"></activity>
+        <activity android:name=".Activites.editJourney"></activity>
+        <activity android:name=".Activites.editChallenge" />
+        <activity android:name=".Activites.editMilestone" />
         <activity android:name=".Activites.EditWalkerActivity" />
         <activity android:name=".Activites.Admin" />
         <activity android:name=".Activites.RegisterActivity" />

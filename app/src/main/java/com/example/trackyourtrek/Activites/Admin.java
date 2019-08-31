@@ -56,7 +56,8 @@ public class Admin extends AppCompatActivity {
                 adapterWalkers.edit((Walker)selectedItem,this);
 
         }else  if(currentVar.equalsIgnoreCase("Challenge")){
-
+            if(selectedItem!=null)
+            adapterChallenge.edit((Challenge)selectedItem,this);
 
         } else if(currentVar.equalsIgnoreCase("Milestone")){
             if(selectedItem!=null)
@@ -187,7 +188,6 @@ public class Admin extends AppCompatActivity {
             setContentView((int)stack.pop());
     }
     private static final int REQ_EDIT = 69;
-    private static final int REQ_MILE = 169;
     // Method called when the request returns with a result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -200,7 +200,10 @@ public class Admin extends AppCompatActivity {
                     adapterWalkers.replace((Walker)selectedItem,newOne);
 
             }else  if(currentVar.equalsIgnoreCase("Challenge")){
-
+                Challenge challenge=(Challenge)data.getExtras().getSerializable("challenge");
+                if(selectedItem!=null){
+                    adapterChallenge.replace((Challenge)selectedItem,challenge);
+                }
 
             } else if(currentVar.equalsIgnoreCase("Milestone")){
                 Milestone milestone=(Milestone)data.getExtras().getSerializable("milestone") ;

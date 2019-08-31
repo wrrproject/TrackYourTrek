@@ -454,7 +454,18 @@ public class TrackYourTrek {
             challenge.cleanJourneys();
         }
     }
-
+    /**
+     * <p>Remove journey procedure</p>
+     * <p>Removes all provide journey in the list of the challenge on the system with the challenge ID give.</p>
+     * @param ChallengeID
+     * @param journey
+     */
+    public void removeJourney(String ChallengeID,Journey journey){
+        Challenge challenge = findChallenge(ChallengeID);
+        if(challenge!=null){
+            challenge.removeJourney(journey);
+        }
+    }
 
     public void removeWalker(Walker walker){
         walkers.remove(walker);

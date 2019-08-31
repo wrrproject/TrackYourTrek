@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.Activites.EditWalkerActivity;
+import com.example.trackyourtrek.Activites.editChallenge;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
+import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
@@ -45,10 +47,12 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
                     Admin.selectedItem=challenge;
                 }
             });
-            lblName.setText("Name: "+ challenge.getName());
-            lblTotalDistance.setText("Distance: " + challenge.getTotalDistance());
-            if(!challenge.isActive()){
-                cardView.setBackgroundColor(Color.argb(100,255,87,35));
+            lblName.setText("Name: "+ this.challenge.getName());
+            lblTotalDistance.setText("Distance: " + this.challenge.getTotalDistance());
+            if(this.challenge.isActive()){
+                cardView.setBackgroundColor(Color.GREEN);
+            }else{
+                cardView.setBackgroundColor(Color.RED);
             }
     }
     }
@@ -112,10 +116,20 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         notifyItemRemoved(i);
         }
     }
-    public static void edit(Challenge challenge, AppCompatActivity app){
-        Intent intent = new Intent(app, EditWalkerActivity.class);
+    public  void edit(Challenge challenge, AppCompatActivity app){
+        Intent intent = new Intent(app, editChallenge.class);
         intent.putExtra("challenge",challenge);
         app.startActivityForResult(intent,69);
+    }
+    public void replace(Challenge old, Challenge newOne){
+        int i = TrackYourTrek.getChallenges().indexOf(old);
+        if(i>=0){
+
+            if(newOne!=null){
+                TrackYourTrek.getChallenges().remove(i);
+                TrackYourTrek.getChallenges().add(i,newOne);}
+            notifyItemChanged(i);
+        }
     }
 }
 
