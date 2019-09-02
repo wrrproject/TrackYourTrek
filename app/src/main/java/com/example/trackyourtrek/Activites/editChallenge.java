@@ -48,6 +48,7 @@ ToggleButton toggleButton ;
     public void onSaveClicked(View view) {
         // Return an answer, so create an intent to deliver the response
         Challenge challenger = new Challenge(edtID.getText().toString(),edtName.getText().toString(),edtDistance.getText().toString(),toggleButton.isChecked());
+        challenger.setJourney(challenge.getJourney());
         Intent result = new Intent();
         result.putExtra("challenge", challenger);
         setResult(Activity.RESULT_OK, result);

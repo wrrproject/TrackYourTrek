@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder> {
-    ArrayList<Journey> journeys;
-
+    public ArrayList<Journey> journeys;
     public JourneyAdapter(PriorityQueue<Journey> journeys) {
         this.journeys = new ArrayList<Journey>();
-        Journey[] arrJ = (Journey[]) journeys.toArray();
-        for (Journey j:arrJ){
-            journeys.add(j);
+        for (Journey j:journeys){
+            this.journeys.add(j);
         }
     }
 
@@ -75,6 +73,23 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         }
     }
 
+    public ArrayList<Journey> getJourneys() {
+        return journeys;
+    }
+
+    public void setJourneys(ArrayList<Journey> journeys) {
+        this.journeys = journeys;
+    }
+
+    public Journey findByDisatcne(int Distance){
+        for (Journey journey:journeys) {
+            if(journey.getDistance()==Distance){
+                return journey;
+            }
+        }
+        return null;
+    }
+
     public static class JourneyViewHolder extends RecyclerView.ViewHolder {
 
         TextView lblLocation,lblDistance,lblFact;
@@ -85,7 +100,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
             lblLocation=itemView.findViewById(R.id.lblLocationJ);
         }
         public void setJourney(Journey journey){
-            lblDistance.setText(journey.getDistance());
+            lblDistance.setText(journey.getDistance()+"");
             lblLocation.setText(journey.getMilestone().getLocation());
             lblFact.setText(journey.getMilestone().getFact());
         }

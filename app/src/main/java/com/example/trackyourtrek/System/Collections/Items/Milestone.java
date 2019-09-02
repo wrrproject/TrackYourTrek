@@ -59,4 +59,9 @@ public class Milestone implements Serializable {
     public void setUsingChallenges(ArrayList<Challenge> usingChallenges) {
         this.usingChallenges = usingChallenges;
     }
+
+    @Override
+    public String toString() {
+        return location +", with fact: " + fact ;
+    }
 }
