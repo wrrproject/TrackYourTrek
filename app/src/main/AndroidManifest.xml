@@ -15,13 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activites.editJourney"></activity>
-        <activity android:name=".Activites.editChallenge" />
-        <activity android:name=".Activites.editMilestone" />
-        <activity android:name=".Activites.EditWalkerActivity" />
-        <activity android:name=".Activites.Admin" />
-        <activity android:name=".Activites.RegisterActivity" />
-        <activity android:name=".Activites.MainActivity">
+        <activity android:name=".Activites.Walker.actGroup"></activity>
+        <activity android:name=".Activites.Walker.walker" />
+        <activity android:name=".Activites.Admin.editJourney" />
+        <activity android:name=".Activites.Admin.editChallenge" />
+        <activity android:name=".Activites.Admin.editMilestone" />
+        <activity android:name=".Activites.Shared.EditWalkerActivity" />
+        <activity android:name=".Activites.Admin.Admin" />
+        <activity android:name=".Activites.Shared.RegisterActivity" />
+        <activity android:name=".Activites.Shared.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

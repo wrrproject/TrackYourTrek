@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;

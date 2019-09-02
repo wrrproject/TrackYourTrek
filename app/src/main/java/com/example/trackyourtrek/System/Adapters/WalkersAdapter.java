@@ -11,13 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trackyourtrek.Activites.Admin;
-import com.example.trackyourtrek.Activites.EditWalkerActivity;
+import com.example.trackyourtrek.Activites.Admin.Admin;
+import com.example.trackyourtrek.Activites.Shared.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
-import java.util.List;
 import java.util.Random;
 
 public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerViewHolder> {

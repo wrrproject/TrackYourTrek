@@ -1,12 +1,8 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
-import android.view.View;
-
-import com.example.trackyourtrek.Activites.Admin;
 import com.example.trackyourtrek.System.Collections.Group;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.PriorityQueue;
 
 public class Walker extends TrekUser {

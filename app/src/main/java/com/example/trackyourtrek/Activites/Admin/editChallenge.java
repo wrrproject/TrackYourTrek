@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,8 +11,6 @@ import android.widget.ToggleButton;
 
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
-import com.example.trackyourtrek.System.Collections.Items.Journey;
-import com.example.trackyourtrek.System.Collections.Items.Milestone;
 
 public class editChallenge extends AppCompatActivity {
 

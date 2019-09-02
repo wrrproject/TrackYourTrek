@@ -4,23 +4,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trackyourtrek.Activites.Admin;
-import com.example.trackyourtrek.Activites.EditWalkerActivity;
-import com.example.trackyourtrek.Activites.editMilestone;
+import com.example.trackyourtrek.Activites.Admin.Admin;
+import com.example.trackyourtrek.Activites.Admin.editMilestone;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Milestone;
-import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
-
-import java.util.List;
-import java.util.Random;
 
 public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.MilestoneViewHolder> {
 

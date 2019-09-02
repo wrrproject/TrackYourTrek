@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Shared;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trackyourtrek.Activites.Walker.walker;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
@@ -30,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         //String password = edtPassword.getText().toString();
         //new LoginActivity(this, ipAddress).execute(username, password);
         //Where Log In Code goes
-        Intent intent = new Intent(this,Admin.class);
+        Intent intent = new Intent(this, walker.class);
+        Walker dummie = new Walker("coolguy69","123456","Kade","Duffin","aaron.elistam@hotlegsfreeemail.co.za");
+        intent.putExtra("walker",dummie);
         startActivity(intent);
     }
     public void register(View view){

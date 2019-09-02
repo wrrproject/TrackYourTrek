@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Shared;
 
 import androidx.appcompat.app.AppCompatActivity;
 

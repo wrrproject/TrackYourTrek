@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Shared;
 
 import android.app.AlertDialog;
 import android.content.Context;

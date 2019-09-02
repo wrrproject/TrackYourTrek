@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Shared;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

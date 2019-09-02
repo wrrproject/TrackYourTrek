@@ -2,9 +2,10 @@ package com.example.trackyourtrek.System.Collections;
 
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group {
+public class Group implements Serializable {
     private String groupID, groupName;
     final private ArrayList<Walker> groupList = new ArrayList<Walker>();
 
@@ -38,5 +39,10 @@ public class Group {
     }
     public void remove(Walker walker){
         groupList.remove(walker);
+    }
+
+    @Override
+    public String toString() {
+        return "Group: '" + groupName + "'";
     }
 }
