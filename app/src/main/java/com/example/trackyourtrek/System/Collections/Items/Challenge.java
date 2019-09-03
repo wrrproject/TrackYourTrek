@@ -118,6 +118,13 @@ boolean active;
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "Challenge "+ name + '\'' +
+                ", totalDistance='" + totalDistance ;
+    }
+
     public static Challenge newInstance(){
         Challenge challenge = new Challenge("id","name","total",false);
         return challenge;

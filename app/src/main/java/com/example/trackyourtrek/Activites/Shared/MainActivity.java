@@ -7,8 +7,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trackyourtrek.Activites.Admin.Admin;
 import com.example.trackyourtrek.Activites.Walker.walker;
 import com.example.trackyourtrek.R;
+import com.example.trackyourtrek.System.Collections.Items.TrekAdmin;
+import com.example.trackyourtrek.System.Collections.Items.TrekUser;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.log_in);
         edtUsername = findViewById(R.id.edtUserName);
         edtPassword = findViewById(R.id.edtPassword);
+        Walker dummie = new Walker("coolguy69","123456","Kade","Duffin","aaron.elistam@hotlegsfreeemail.co.za");
+        TrackYourTrek.getInstance().register(dummie);
     }
 
     public void btnLoginClick(View view) {
@@ -31,10 +36,22 @@ public class MainActivity extends AppCompatActivity {
         //String password = edtPassword.getText().toString();
         //new LoginActivity(this, ipAddress).execute(username, password);
         //Where Log In Code goes
-        Intent intent = new Intent(this, walker.class);
-        Walker dummie = new Walker("coolguy69","123456","Kade","Duffin","aaron.elistam@hotlegsfreeemail.co.za");
-        intent.putExtra("walker",dummie);
-        startActivity(intent);
+        edtUsername = findViewById(R.id.edtUserName);
+        edtPassword = findViewById(R.id.edtPassword);
+        String username =edtUsername.getText().toString();
+        String password = edtPassword.getText().toString();
+        TrekUser trekUser = TrackYourTrek.getInstance().logIn(username,password);
+        if(trekUser instanceof TrekAdmin){
+            Intent intent = new Intent(this, Admin.class);
+            startActivity(intent);
+        }else if(trekUser instanceof Walker){
+            Intent intent = new Intent(this, walker.class);
+            intent.putExtra("walker",(Walker)trekUser);
+            startActivity(intent);
+        }
+        edtPassword.setText("");
+        edtUsername.setText("");
+
     }
     public void register(View view){
         setContentView(R.layout.register);
@@ -49,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         password=((TextView)findViewById(R.id.edtPassword3)).getText().toString();
         Walker walker = new Walker(username,password,fname,lname,email);
         TrackYourTrek.getInstance().register(walker);
+        onBackPressed();
     }
 
     @Override

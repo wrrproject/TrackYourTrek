@@ -111,7 +111,7 @@ public class Admin extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Challenges List");
         //Intialize Adapter
-        adapterChallenge= new ChallengeAdapter();
+        adapterChallenge= new ChallengeAdapter(null);
 
         // How will the individual items be laid out in the collection view?
         RecyclerView.LayoutManager layoutManager;

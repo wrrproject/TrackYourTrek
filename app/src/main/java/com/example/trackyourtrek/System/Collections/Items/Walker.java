@@ -7,6 +7,15 @@ import java.util.PriorityQueue;
 
 public class Walker extends TrekUser {
     private Group group;
+
+    public ArrayList<Challenge> getActiveChallenges() {
+        return activeChallenges;
+    }
+
+    public void setActiveChallenges(ArrayList<Challenge> activeChallenges) {
+        this.activeChallenges = activeChallenges;
+    }
+
     private ArrayList<Challenge> activeChallenges = new ArrayList<>();
     private ArrayList<PriorityQueue<ProgressRecord>> history = new ArrayList<PriorityQueue<ProgressRecord>>();
     public void setDetails(Walker walker){
@@ -21,9 +30,21 @@ public class Walker extends TrekUser {
         return walker;
     }
     public void addhallenge(Challenge challenge){
+        if(!activeChallenges.contains(challenge))
         activeChallenges.add(challenge);
 
     }
+    public boolean alreadyGot(Challenge challenge){
+        if(challenge==null)
+            return true;
+        for (Challenge chall:activeChallenges) {
+            if(chall.getChallengeID().equals(challenge.getChallengeID())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void removeChallenge(Challenge challenge){
         int place = activeChallenges.indexOf(challenge);
         activeChallenges.remove(place);

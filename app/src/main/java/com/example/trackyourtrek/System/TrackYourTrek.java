@@ -22,7 +22,7 @@ import java.util.Random;
 public class TrackYourTrek {
     //All System Variables
     private static final String ADMINUSERNAME="GayOverLord69";
-    private static final String ADMINPASSWORD="12345Six";
+    private static final String ADMINPASSWORD="123456";
     private static final TrackYourTrek ourInstance = new TrackYourTrek();
     private static final ArrayList<Walker> walkers = new ArrayList<>();
     private static final ArrayList<Challenge> challenges = new ArrayList<>();
@@ -483,11 +483,10 @@ public class TrackYourTrek {
     public static TrackYourTrek getInstance() {
         return ourInstance;
     }
-
     private TrackYourTrek() {
 
     }
-    private Walker findWalker(String username){
+    public Walker findWalker(String username){
         for (Walker walker:walkers) {
             if(walker.getUsername().equals(username)){
                 return walker;

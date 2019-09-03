@@ -27,16 +27,24 @@ private final int REQ_GROUP=5;
         }
     }
 
-    TextView lblHeading,edtGroupName;
+    TextView lblHeading,edtGroupName,edtTotalChallenges;
     @Override
     protected void onStart() {
         super.onStart();
+        String username = currentUser.getUsername();
+        currentUser=TrackYourTrek.getInstance().findWalker(username);
+        if(currentUser==null){
+            finish();
+        }
         lblHeading=findViewById(R.id.lblWalkerHeading);
         lblHeading.setText("Welcome, " +currentUser.getUsername()+"!");
         edtGroupName=findViewById(R.id.edtGroupName);
         if(currentUser.getGroup()!=null){
             edtGroupName.setText(currentUser.getGroup().toString());
         }
+        edtTotalChallenges=findViewById(R.id.eedtTotalChallenges);
+        edtTotalChallenges.setText(currentUser.getActiveChallenges().size()+"");
+
     }
 
     @Override
@@ -47,9 +55,7 @@ private final int REQ_GROUP=5;
             Group group= (Group)data.getExtras().getSerializable("group");
             if(TrackYourTrek.getGroups().indexOf(group)==-1){
                 TrackYourTrek.getInstance().createGroup(group);
-                group.add(currentUser);
-                currentUser.setGroup(group);
-                edtGroupName.setText(group.toString());
+                TrackYourTrek.getInstance().joinGroup(group.getGroupID(),currentUser.getUsername());
             }
         } else if(requestCode==REQ_EDITWALKER&&resultCode==RESULT_OK){
             //THen they changed their details
@@ -71,5 +77,11 @@ private final int REQ_GROUP=5;
         Intent intent = new Intent(this, EditWalkerActivity.class);
         intent.putExtra("walker",currentUser);
         startActivityForResult(intent,REQ_EDITWALKER);
+    }
+
+    public void toChallenges(View view) {
+        Intent intent = new Intent(this,walkerChallenges.class);
+        intent.putExtra("walker",currentUser);
+        startActivity(intent);
     }
 }

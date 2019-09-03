@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activites.Walker.actGroup"></activity>
+        <activity android:name=".Activites.Walker.walkerChallenges"></activity>
+        <activity android:name=".Activites.Walker.actGroup" />
         <activity android:name=".Activites.Walker.walker" />
         <activity android:name=".Activites.Admin.editJourney" />
         <activity android:name=".Activites.Admin.editChallenge" />

@@ -15,6 +15,8 @@ import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
+import java.util.ArrayList;
+
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
 
     /**
@@ -53,9 +55,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     }
 
     // The collection of data that this adapter is currently displaying.
+    private ArrayList<Challenge> challenges;
 
-    public ChallengeAdapter() {
+    public ArrayList<Challenge> getChallenges() {
+        return challenges;
+    }
 
+    public ChallengeAdapter(ArrayList<Challenge> challenges)  {
+        this.challenges=challenges;
     }
 
     @NonNull
@@ -82,7 +89,13 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         // fill the data item's values into the view.
 
         // Get the data to be displayed
-        Challenge person = TrackYourTrek.viewChallenges().get(position);
+
+        Challenge person ;
+        if(challenges==null){
+           person = TrackYourTrek.viewChallenges().get(position);
+        }else{
+            person = challenges.get(position);
+        }
 
         // Fill the data from person into the view.
         holder.setChallenge(person);
@@ -91,22 +104,42 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
 
     @Override
     public int getItemCount() {
+        if(challenges==null)
         return TrackYourTrek.viewChallenges().size();
+        return challenges.size();
     }
 
     public void add(Challenge challenge) {
         // Add the person and notify the view of changes.
-        TrackYourTrek.getInstance().addChallenge(challenge);
+        if(challenge==null)
+        {
+            TrackYourTrek.getInstance().addChallenge(challenge);
+            notifyItemChanged(TrackYourTrek.viewChallenges().size() - 1);
+        }
+        else{
+            challenges.add(challenge);
+            notifyItemChanged(challenges.size()-1);
+        }
         // In this case, specify WHICH person changed.
-        notifyItemChanged(TrackYourTrek.viewChallenges().size() - 1);
+
+
     }
 
     public void remove(Object object) {
         // Remove the person.
         if(object instanceof Challenge){
             Challenge challenge = (Challenge)object;
-        int i = TrackYourTrek.viewChallenges().indexOf(challenge);
+        int i ;
+        if(challenges==null) {
+            i = TrackYourTrek.viewChallenges().indexOf(challenge);
             TrackYourTrek.viewChallenges().remove(challenge);
+        }else{
+            i=  challenges.indexOf(challenge);
+            if(i>0){
+                challenges.remove(i);
+            }
+
+        }
         // Notify view of underlying data changed.
         notifyItemRemoved(i);
         }
