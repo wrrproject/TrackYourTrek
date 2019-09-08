@@ -3,24 +3,37 @@ package com.example.trackyourtrek.System.Collections.Items;
 import java.io.Serializable;
 
 public class Journey implements Comparable<Journey>, Serializable {
-    private Challenge challenge;
-    private Milestone milestone;
+    private int challengeID, milestoneID, distance;
 
-    public Challenge getChallenge() {
-        return challenge;
+    public Journey(int challengeID, int milestoneID, int distance) {
+        this.challengeID = challengeID;
+        this.milestoneID = milestoneID;
+        this.distance = distance;
     }
 
-    public void setChallenge(Challenge challenge) {
-        this.challenge = challenge;
+    public int getMilestoneID() {
+        return milestoneID;
     }
 
-    public Milestone getMilestone() {
-        return milestone;
+    public int getChallengeID() {
+        return challengeID;
     }
 
-    public void setMilestone(Milestone milestone) {
-        this.milestone = milestone;
-    }
+    //    public Challenge getChallenge() {
+//        return challenge;
+//    }
+//
+//    public void setChallenge(Challenge challenge) {
+//        this.challenge = challenge;
+//    }
+//
+//    public Milestone getMilestone() {
+//        return milestone;
+//    }
+//
+//    public void setMilestone(Milestone milestone) {
+//        this.milestone = milestone;
+//    }
 
     public int getDistance() {
         return distance;
@@ -30,12 +43,8 @@ public class Journey implements Comparable<Journey>, Serializable {
         this.distance = distance;
     }
 
-    private int distance;
-
-
-
     @Override
     public int compareTo(Journey journey) {
-        return this.getDistance()-journey.getDistance();
+        return this.getDistance() - journey.getDistance();
     }
 }

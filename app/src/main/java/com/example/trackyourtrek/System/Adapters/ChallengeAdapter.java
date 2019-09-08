@@ -5,85 +5,76 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.trackyourtrek.Activites.Admin;
+
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
-import java.util.List;
+import com.example.trackyourtrek.System.TrackYourTrek;
+import com.example.trackyourtrek.Utility.RecyclerViewItemTouch;
+
+import java.util.ArrayList;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
-
-    /**
-     * You need to define a View Holder, which will hold the data in its view for
-     * a specific person.
-     */
     public static class ChallengeViewHolder extends RecyclerView.ViewHolder {
         public TextView lblName;
         public TextView lblTotalDistance;
-        public Challenge challenge;
         public View cardView;
+        public Challenge challenge;
+
         public ChallengeViewHolder(@NonNull View view) {
             super(view);
-            cardView = view.getRootView();
-            // Get references to commonly used Views in the layout.
-            lblName = view.findViewById(R.id.lblID);
-            lblTotalDistance = view.findViewById(R.id.lbllocation);
+
+            lblName = view.findViewById(R.id.lblUsername);
+            lblTotalDistance = view.findViewById(R.id.lblEmail);
+            cardView = view.findViewById(R.id.cardView);
         }
 
-        public void setChallenge(Challenge challenge) {
+        public void setChallenge(Challenge challenge, RecyclerViewItemTouch<Challenge> listener) {
             this.challenge = challenge;
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Admin.selectedItem=challenge;
-                }
-            });
-            lblName.setText("Name: "+ challenge.getName());
+
+//            cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    AdminActivity.selectedItem = challenge;
+//                }
+//            });
+
+            lblName.setText("Name: " + challenge.getName());
             lblTotalDistance.setText("Distance: " + challenge.getTotalDistance());
-            if(!challenge.isActive()){
-                cardView.setBackgroundColor(Color.argb(100,255,87,35));
+            if (challenge.isActive()) {
+                cardView.setBackgroundColor(Color.GREEN);
+            } else {
+                cardView.setBackgroundColor(Color.RED);
             }
-    }
+            cardView.setOnClickListener(view -> listener.onItemTouch(challenge));
+        }
     }
 
-    // The collection of data that this adapter is currently displaying.
-    private final List<Challenge> challenges;
+    private final ArrayList<Challenge> challenges;
+    private final RecyclerViewItemTouch<Challenge> mlistener;
 
-    public ChallengeAdapter( List<Challenge> challenges) {
+    public ChallengeAdapter(ArrayList<Challenge> challenges, RecyclerViewItemTouch<Challenge> listener) {
         this.challenges = challenges;
+        this.mlistener = listener;
     }
 
     @NonNull
     @Override
     public ChallengeAdapter.ChallengeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // This method is called by Android when it needs a brand new View to display
-        // a single person. The ViewHolder will hold a reference to this newly created View.
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_challenge, parent, false);
 
-        // Inflate (create) the UI scenegraph from the layout xml resource.
-        View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.recyclerview_challenge,
-                        //.inflate(R.layout.recyclerview_person_simple_details,
-                        parent, false);
-
-        // Put it into a View Holder object and return this.
-        ChallengeAdapter.ChallengeViewHolder pvh = new ChallengeAdapter.ChallengeViewHolder(view);
-        return pvh;
+        ChallengeViewHolder cvh = new ChallengeViewHolder(view);
+        return cvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChallengeAdapter.ChallengeViewHolder holder, int position) {
-        // Given the View Holder and an index to the View to be used to display it,
-        // fill the data item's values into the view.
-
-        // Get the data to be displayed
-        Challenge person = challenges.get(position);
-
-        // Fill the data from person into the view.
-        holder.setChallenge(person);
+    public void onBindViewHolder(@NonNull ChallengeViewHolder holder, int position) {
+        Challenge challenge = challenges.get(position);
+        holder.setChallenge(challenge, mlistener);
     }
-
 
     @Override
     public int getItemCount() {
@@ -91,22 +82,33 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     }
 
     public void add(Challenge challenge) {
-        // Add the person and notify the view of changes.
         challenges.add(challenge);
-        // In this case, specify WHICH person changed.
         notifyItemChanged(challenges.size() - 1);
+        TrackYourTrek.areThereChanges = true;
     }
 
-    public void remove(Object object) {
-        // Remove the person.
-        if(object instanceof Challenge){
-            Challenge challenge = (Challenge)object;
-        int i = challenges.indexOf(challenge);
-        challenges.remove(challenge);
-        // Notify view of underlying data changed.
-        notifyItemRemoved(i);
-        }
+    public void remove(int position) {
+        challenges.remove(position);
+        notifyItemRemoved(position);
+        TrackYourTrek.areThereChanges = true;
     }
+//    public void edit(Challenge challenge, AppCompatActivity app) {
+//        Intent intent = new Intent(app, EditChallengeActivity.class);
+//        intent.putExtra("challenge", challenge);
+//        app.startActivityForResult(intent, 69);
+//    }
+//
+//    public void replace(Challenge old, Challenge newOne) {
+//        int i = TrackYourTrek.getChallenges().indexOf(old);
+//        if (i >= 0) {
+//
+//            if (newOne != null) {
+//                TrackYourTrek.getChallenges().remove(i);
+//                TrackYourTrek.getChallenges().add(i, newOne);
+//            }
+//            notifyItemChanged(i);
+//        }
+//    }
 }
 
 

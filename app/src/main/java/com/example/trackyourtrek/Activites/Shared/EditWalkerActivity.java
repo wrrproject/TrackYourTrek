@@ -1,4 +1,4 @@
-package com.example.trackyourtrek.Activites;
+package com.example.trackyourtrek.Activites.Shared;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
+import com.example.trackyourtrek.System.TrackYourTrek;
 
 public class EditWalkerActivity extends AppCompatActivity {
     private static Walker walker;
@@ -26,7 +27,7 @@ public class EditWalkerActivity extends AppCompatActivity {
         if(intent!=null){
             Bundle extra = intent.getExtras();
             if(extra!=null){
-                walker=(Walker) extra.getSerializable("walker");
+                walker=(Walker) extra.getSerializable("WalkerActivity");
                 loadViews();
                 writeToVIews();
                 loaded=true;
@@ -43,7 +44,7 @@ public class EditWalkerActivity extends AppCompatActivity {
          edtLastName=((TextView)findViewById(R.id.edtLastName));
          edtUsername=((TextView)findViewById(R.id.edtUsername));
          edtEmail=((TextView)findViewById(R.id.edtEmail));
-         edtPassword=((TextView)findViewById(R.id.edtPassword3));
+         edtPassword=((TextView)findViewById(R.id.edtPassword));
     }
     private void writeToVIews(){
         if(!loaded)
@@ -61,7 +62,7 @@ public class EditWalkerActivity extends AppCompatActivity {
         lname=((TextView)findViewById(R.id.edtLastName)).getText().toString();
         username=((TextView)findViewById(R.id.edtUsername)).getText().toString();
         email=((TextView)findViewById(R.id.edtEmail)).getText().toString();
-        password=((TextView)findViewById(R.id.edtPassword3)).getText().toString();
+        password=((TextView)findViewById(R.id.edtPassword)).getText().toString();
         walker = new Walker(username,password,fname,lname,email);
         writeToVIews();
 
@@ -69,13 +70,17 @@ public class EditWalkerActivity extends AppCompatActivity {
     public void onReturnClicked(View view) {
         // Return an answer, so create an intent to deliver the response
         Intent result = new Intent();
-        result.putExtra("walker", walker);
+        result.putExtra("WalkerActivity", walker);
         setResult(Activity.RESULT_OK, result);
         finish();
     }
 
     @Override
-    public void onBackPressed() {
-        onReturnClicked(null);
+    protected void onPause() {
+        super.onPause();
+
+        if (TrackYourTrek.areThereChanges) {
+            TrackYourTrek.saveToDataBase();
+        }
     }
 }

@@ -74,7 +74,7 @@
                 app:layout_constraintStart_toStartOf="@+id/left" />
 
             <EditText
-                android:id="@+id/edtPassword3"
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

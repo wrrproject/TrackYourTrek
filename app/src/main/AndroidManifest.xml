@@ -14,11 +14,16 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Activites.EditWalkerActivity"></activity>
-        <activity android:name=".Activites.Admin" />
-        <activity android:name=".Activites.RegisterActivity" />
-        <activity android:name=".Activites.MainActivity">
+        android:theme="@style/PurpleGreenBlue">
+        <activity android:name=".Activites.Walker.WalkerChallenges"></activity>
+        <activity android:name=".Activites.Walker.ActGroup" />
+        <activity android:name=".Activites.Walker.WalkerActivity" />
+        <activity android:name=".Activites.Admin.EditJourneyActivity" />
+        <activity android:name=".Activites.Admin.EditChallengeActivity" />
+        <activity android:name=".Activites.Admin.EditMilestoneActivity" />
+        <activity android:name=".Activites.Shared.EditWalkerActivity" />
+        <activity android:name=".Activites.Admin.AdminActivity" />
+        <activity android:name=".Activites.Shared.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
