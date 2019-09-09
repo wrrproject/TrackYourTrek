@@ -8,9 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.trackyourtrek.Activites.Admin.AdminActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.TrackYourTrek;
+import com.example.trackyourtrek.Utility.DeleteMe;
 import com.example.trackyourtrek.Utility.RecyclerViewItemTouch;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
 //            cardView.setOnClickListener(view -> AdminActivity.selectedItem = milestone);
             lblLocation.setText(milestone.getLocation());
             lblID.setText("" + milestone.getMilestoneID());
-            cardView.setOnClickListener(view -> listener.onItemTouch(milestone));
+            cardView.setOnClickListener(view -> listener.onItemTouch(milestone, cardView));
         }
     }
 
@@ -76,12 +78,19 @@ public class MilestoneAdapter extends RecyclerView.Adapter<MilestoneAdapter.Mile
         milestones.add(milestone);
         notifyItemChanged(milestones.size() - 1);
         TrackYourTrek.areThereChanges = true;
+
+        AdminActivity.selectedItem = milestone;
+        mListener.onItemTouch(milestone, null);
     }
 
     public void remove(int position) {
 //        int i = TrackYourTrek.getMilestones().indexOf(object);
 //        TrackYourTrek.getMilestones().remove(object);
 //        notifyItemRemoved(i);
+        Milestone m = milestones.get(position);
+        DeleteMe deleter = new DeleteMe();
+        deleter.execute("Milestone", "" + m.getMilestoneID());
+
         milestones.remove(position);
         notifyItemChanged(position);
         TrackYourTrek.areThereChanges = true;
