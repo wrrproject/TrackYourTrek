@@ -48,7 +48,7 @@ public class WalkerChallenges extends AppCompatActivity {
         super.onStart();
         recyclerView = findViewById(R.id.recycler);
         challengeAdapter = new ChallengeAdapter(ListSearches
-                .findChallengesByUsername(currentUser.getUsername()), challenge -> {
+                .findChallengesByUsername(currentUser.getUsername()), (challenge, v) -> {
             //Challenge clicked in recycler view
         });
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

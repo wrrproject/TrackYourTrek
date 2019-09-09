@@ -27,7 +27,7 @@ public class Executioner extends AsyncTask<String, String, String> {
     public Executioner() {
     }
 
-    private static final String ipAddress = "http://tissink.ddns.net:8080/";
+    public static final String ipAddress = "http://tissink.ddns.net:8080/";
 
     @Override
     protected String doInBackground(String... args) {

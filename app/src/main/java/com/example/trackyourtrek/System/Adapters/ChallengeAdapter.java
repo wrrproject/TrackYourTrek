@@ -9,9 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.trackyourtrek.Activites.Admin.AdminActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Challenge;
 import com.example.trackyourtrek.System.TrackYourTrek;
+import com.example.trackyourtrek.Utility.DeleteMe;
 import com.example.trackyourtrek.Utility.RecyclerViewItemTouch;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
             } else {
                 cardView.setBackgroundColor(Color.RED);
             }
-            cardView.setOnClickListener(view -> listener.onItemTouch(challenge));
+            cardView.setOnClickListener(view -> listener.onItemTouch(challenge, cardView));
         }
     }
 
@@ -85,9 +87,16 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         challenges.add(challenge);
         notifyItemChanged(challenges.size() - 1);
         TrackYourTrek.areThereChanges = true;
+
+        AdminActivity.selectedItem = challenge;
+        mlistener.onItemTouch(challenge, null);
     }
 
     public void remove(int position) {
+        Challenge c = challenges.get(position);
+        DeleteMe deleter = new DeleteMe();
+        deleter.execute("Challenge", "" + c.getChallengeID());
+
         challenges.remove(position);
         notifyItemRemoved(position);
         TrackYourTrek.areThereChanges = true;

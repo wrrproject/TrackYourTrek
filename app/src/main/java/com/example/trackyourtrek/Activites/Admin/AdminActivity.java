@@ -2,10 +2,13 @@ package com.example.trackyourtrek.Activites.Admin;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,9 @@ import java.util.Stack;
 
 public class AdminActivity extends AppCompatActivity {
     public static Object selectedItem;
+    private View selectedView;
+    private Drawable viewColor;
+
     public final Stack stack = new Stack();
     ////Adapter Declaration
     WalkersAdapter adapterWalkers;
@@ -50,19 +56,25 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    public <T extends Serializable> void edit(T item) {
+    public <T extends Serializable> void edit(T item, View v) {
         if (currentVar.equalsIgnoreCase("Walker")) {
             if (selectedItem != null)
                 adapterWalkers.edit((Walker) selectedItem, this);
 
         } else if (currentVar.equalsIgnoreCase("Challenge")) {
-            Intent intent = new Intent(this, EditChallengeActivity.class);
-            intent.putExtra("challenge", item);
-            startActivityForResult(intent, REQ_EDIT);
+            Runnable r = () -> {
+                Intent intent = new Intent(this, EditChallengeActivity.class);
+                intent.putExtra("challenge", item);
+                startActivityForResult(intent, REQ_EDIT);
+            };
+            recyclerViewSelector(item, v, r);
         } else if (currentVar.equalsIgnoreCase("Milestone")) {
-            Intent intent = new Intent(this, EditMilestoneActivity.class);
-            intent.putExtra("milestone", item);
-            startActivityForResult(intent, REQ_EDIT);
+            Runnable r = () -> {
+                Intent intent = new Intent(this, EditMilestoneActivity.class);
+                intent.putExtra("milestone", item);
+                startActivityForResult(intent, REQ_EDIT);
+            };
+            recyclerViewSelector(item, v, r);
         }
     }
 
@@ -72,9 +84,15 @@ public class AdminActivity extends AppCompatActivity {
                 adapterWalkers.remove(selectedItem);
 
         } else if (currentVar.equalsIgnoreCase("Challenge")) {
-            //adapterChallenge.remove(selectedItem);
-
+            if (selectedItem != null) {
+                Runnable r = () -> adapterChallenge.remove(TrackYourTrek.getChallenges().indexOf(selectedItem));
+                confirmationMessage("Challenge", r);
+            } else noItemSelectedError("Challenge");
         } else if (currentVar.equalsIgnoreCase("Milestone")) {
+            if (selectedItem != null) {
+                Runnable r = () -> adapterMilestone.remove(TrackYourTrek.getMilestones().indexOf(selectedItem));
+                confirmationMessage("Milestone", r);
+            } else noItemSelectedError("Milestone");
             //adapterMilestone.remove(selectedItem);
         }
     }
@@ -203,6 +221,58 @@ public class AdminActivity extends AppCompatActivity {
                 TrackYourTrek.areThereChanges = true;
             }
         }
+    }
+
+    private <T extends Serializable> void recyclerViewSelector(T item, View v, Runnable r) {
+        if (selectedItem == null) {
+            selectedItem = item;
+            if (v != null) {
+                viewColor = v.getBackground();
+                v.setBackground(new ColorDrawable(getResources().getColor(R.color.purple, null)));
+                selectedView = v;
+            }
+        } else {
+            if (selectedItem != item) {
+                selectedItem = item;
+                if (selectedView != null) {
+                    selectedView.setBackground(viewColor);
+                }
+                if (v != null) {
+                    viewColor = v.getBackground();
+                    v.setBackground(new ColorDrawable(getResources().getColor(R.color.purple, null)));
+                    selectedView = v;
+                }
+            } else {
+                if (selectedView != null) {
+                    selectedView.setBackground(viewColor);
+                }
+                selectedItem = null;
+                viewColor = null;
+                selectedView = null;
+                r.run();
+            }
+        }
+    }
+
+    private void noItemSelectedError(String type) {
+        AlertDialog.Builder bob = new AlertDialog.Builder(this);
+        bob.setTitle("Error").setMessage("You must first select a " + type + " to remove.");
+        bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+        });
+        bob.show();
+    }
+
+    private void confirmationMessage(String type, Runnable runnable) {
+        AlertDialog.Builder bob = new AlertDialog.Builder(this);
+        bob.setTitle("Confirm Delete").setMessage("Are you sure you want to remove this " + type +
+                ". This action cannot be undone.");
+        bob.setPositiveButton("Confirm", (dialogInterface, i) -> {
+            runnable.run();
+            selectedItem = null;
+        });
+        bob.setNegativeButton("Cancel", (dialogInterface, i) -> {
+        });
+        bob.show();
     }
 
     @Override
