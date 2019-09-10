@@ -20,6 +20,7 @@ public class EditWalkerActivity extends AppCompatActivity {
         setContentView(R.layout.edit_walker_details);
     }
     private static boolean loaded = false;
+    private boolean usernameEdit = true;
     @Override
     protected void onStart() {
         super.onStart();
@@ -28,6 +29,7 @@ public class EditWalkerActivity extends AppCompatActivity {
             Bundle extra = intent.getExtras();
             if(extra!=null){
                 walker=(Walker) extra.getSerializable("WalkerActivity");
+                usernameEdit=extra.getBoolean("username");
                 loadViews();
                 writeToVIews();
                 loaded=true;
@@ -43,7 +45,12 @@ public class EditWalkerActivity extends AppCompatActivity {
          edtFirstName=((TextView)findViewById(R.id.edtFirstName));
          edtLastName=((TextView)findViewById(R.id.edtLastName));
          edtUsername=((TextView)findViewById(R.id.edtUsername));
-         edtEmail=((TextView)findViewById(R.id.edtEmail));
+        if(usernameEdit){
+            edtUsername.setEnabled(true);
+        }else{
+            edtUsername.setEnabled(false);
+        }
+        edtEmail=((TextView)findViewById(R.id.edtEmail));
          edtPassword=((TextView)findViewById(R.id.edtPassword));
     }
     private void writeToVIews(){

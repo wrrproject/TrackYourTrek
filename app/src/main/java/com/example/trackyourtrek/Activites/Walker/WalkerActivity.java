@@ -83,6 +83,7 @@ public class WalkerActivity extends AppCompatActivity {
     public void viewDetails(View view) {
         Intent intent = new Intent(this, EditWalkerActivity.class);
         intent.putExtra("WalkerActivity", currentUser);
+        intent.putExtra("username",false);//means you cant change username
         startActivityForResult(intent, REQ_EDITWALKER);
     }
 
