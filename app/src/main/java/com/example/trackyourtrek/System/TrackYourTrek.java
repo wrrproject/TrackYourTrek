@@ -107,7 +107,7 @@ public class TrackYourTrek {
      * <p>Just invokes the save to database function</p>
      */
     public static void logout() {
-//        saveToDataBase();
+        saveToDataBase();
     }
 
     public static void saveToDataBase() {

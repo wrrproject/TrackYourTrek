@@ -55,12 +55,13 @@ public class WalkerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQ_GROUP && resultCode == RESULT_OK) {
             //Need to extract the new group
             Group group = (Group) data.getExtras().getSerializable("group");
             if (TrackYourTrek.getGroups().indexOf(group) == -1) {
-                TrackYourTrek.getInstance().createGroup(group.getGroupName());
-                TrackYourTrek.getInstance().joinGroup(group.getGroupID(), currentUser.getUsername());
+                //TrackYourTrek.createGroup(group.getGroupName());
+                TrackYourTrek.joinGroup(group.getGroupID(), currentUser.getUsername());
             }
         } else if (requestCode == REQ_EDITWALKER && resultCode == RESULT_OK) {
             //THen they changed their details
@@ -75,6 +76,7 @@ public class WalkerActivity extends AppCompatActivity {
 
     public void toGroup(View view) {
         Intent intent = new Intent(this, ActGroup.class);
+        intent.putExtra("user", currentUser);
         startActivityForResult(intent, REQ_GROUP);
     }
 
@@ -88,6 +90,11 @@ public class WalkerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WalkerChallenges.class);
         intent.putExtra("WalkerActivity", currentUser);
         startActivity(intent);
+    }
+
+    public void btnLogoutClick(View view) {
+        TrackYourTrek.saveToDataBase();
+        onBackPressed();
     }
 
     @Override

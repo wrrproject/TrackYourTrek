@@ -7,6 +7,7 @@ import com.example.trackyourtrek.System.Collections.Items.Journey;
 import com.example.trackyourtrek.System.Collections.Items.Milestone;
 import com.example.trackyourtrek.System.Collections.Items.Progress;
 import com.example.trackyourtrek.System.Collections.Items.TrekUser;
+import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 
 import java.util.ArrayList;
@@ -38,6 +39,25 @@ public class ListSearches {
             }
         }
         return null;
+    }
+
+    public static Group findGroupByName(String groupName) {
+        for (Group g : TrackYourTrek.getGroups()) {
+            if (g.getGroupName().equals(groupName)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<TrekUser> findUsersByGroup(int groupID) {
+        ArrayList<TrekUser> result = new ArrayList<>();
+        for (Walker w : TrackYourTrek.getWalkers()) {
+            if (w.getGroupID() == groupID) {
+                result.add(w);
+            }
+        }
+        return result;
     }
 
     public static TrekUser findUserByUsername(String username) {

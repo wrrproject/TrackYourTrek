@@ -1,5 +1,7 @@
 package com.example.trackyourtrek.System.Collections.Items;
 
+import com.example.trackyourtrek.Utility.ListSearches;
+
 import java.io.Serializable;
 
 public class Group implements Serializable {
@@ -29,6 +31,7 @@ public class Group implements Serializable {
 
     @Override
     public String toString() {
-        return "Group: '" + groupName + "'";
+        int num = ListSearches.findUsersByGroup(groupID).size();
+        return "Group: '" + groupName + "'\t\t\t" + num + " members";
     }
 }

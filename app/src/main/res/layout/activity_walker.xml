@@ -7,6 +7,20 @@
     tools:context=".Activites.Walker.WalkerActivity"
     tools:layout_editor_absoluteY="81dp">
 
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="btnLogoutClick"
+        android:text="Log Out"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtGroupName" />
+
     <TextView
         android:id="@+id/lblWalkerHeading"
         android:layout_width="wrap_content"
@@ -151,8 +165,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="NO GORUP ADDED YET"
+        android:inputType="none"
+        android:text="You have not joined a group"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -132,7 +132,7 @@ public class AdminActivity extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Challenges List");
 
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
 
         RecyclerView lst = findViewById(R.id.recyclerView);
         lst.setLayoutManager(layoutManager);
@@ -153,7 +153,7 @@ public class AdminActivity extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Milestone List");
 
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
 
         RecyclerView lst = findViewById(R.id.recyclerView);
         lst.setLayoutManager(layoutManager);
@@ -273,6 +273,11 @@ public class AdminActivity extends AppCompatActivity {
         bob.setNegativeButton("Cancel", (dialogInterface, i) -> {
         });
         bob.show();
+    }
+
+    public void btnLogoutClick(View view) {
+        TrackYourTrek.saveToDataBase();
+        onBackPressed();
     }
 
     @Override
