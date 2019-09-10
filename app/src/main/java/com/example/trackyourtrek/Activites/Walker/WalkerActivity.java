@@ -92,6 +92,11 @@ public class WalkerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnLogoutClick(View view) {
+        TrackYourTrek.saveToDataBase();
+        onBackPressed();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();

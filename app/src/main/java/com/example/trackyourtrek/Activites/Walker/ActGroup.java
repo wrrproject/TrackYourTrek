@@ -3,8 +3,10 @@ package com.example.trackyourtrek.Activites.Walker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,6 +50,22 @@ public class ActGroup extends AppCompatActivity {
                 TrackYourTrek.getGroups()); // the person collection to be displayed
         edtName = findViewById(R.id.edtGroupName);
         spinner.setAdapter(groupArrayAdapter);
+        EditText edtSearch = findViewById(R.id.edtSearch);
+        edtSearch.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER ||
+                    keyCode == KeyEvent.KEYCODE_DPAD_CENTER)) {
+                String name = edtSearch.getText().toString();
+                Group g = ListSearches.findGroupByName(name);
+                if (g == null) {
+                    edtSearch.setHint("No group with name '" + name + "'.");
+                } else {
+                    spinner.setSelection(groupArrayAdapter.getPosition(g), true);
+                }
+                edtSearch.setText("");
+                return true;
+            }
+            return false;
+        });
 
         //Switch spinner to current group if already in group
         if (user != null && user.getGroupID() != -1) {

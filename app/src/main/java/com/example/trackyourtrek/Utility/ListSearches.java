@@ -41,6 +41,15 @@ public class ListSearches {
         return null;
     }
 
+    public static Group findGroupByName(String groupName) {
+        for (Group g : TrackYourTrek.getGroups()) {
+            if (g.getGroupName().equals(groupName)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<TrekUser> findUsersByGroup(int groupID) {
         ArrayList<TrekUser> result = new ArrayList<>();
         for (Walker w : TrackYourTrek.getWalkers()) {
