@@ -3,6 +3,7 @@ package com.example.trackyourtrek.Activites.Shared;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -89,6 +90,18 @@ public class MainActivity extends AppCompatActivity {
     public void register(View view) {
         setContentView(R.layout.register);
         stack.push(R.layout.log_in);
+        TextView edtFirstanem = ((TextView) findViewById(R.id.edtFirstName));
+        edtFirstanem.setOnTouchListener((view1, motionEvent) -> {edtFirstanem.setBackgroundColor(Color.WHITE) ; return true;});
+        TextView lname = ((TextView) findViewById(R.id.edtLastName));
+        lname.setOnTouchListener((view1, motionEvent) -> {lname.setBackgroundColor(Color.WHITE) ; return true;});
+        TextView username = ((TextView) findViewById(R.id.edtUsername));
+        username.setOnTouchListener((view1, motionEvent) -> {username.setBackgroundColor(Color.WHITE) ; return true;});
+        TextView email = ((TextView) findViewById(R.id.edtEmail));
+        email.setOnTouchListener((view1, motionEvent) -> {email.setBackgroundColor(Color.WHITE) ; return true;});
+        TextView password = ((TextView) findViewById(R.id.edtPassword));
+        password.setOnTouchListener((view1, motionEvent) -> {password.setBackgroundColor(Color.WHITE) ; return true;});
+        TextView retype = ((TextView) findViewById(R.id.edtReEnter));
+        retype.setOnTouchListener((view1, motionEvent) -> {retype.setBackgroundColor(Color.WHITE) ; return true;});
     }
 
     public void registerUser(View view) {
@@ -98,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         username = ((TextView) findViewById(R.id.edtUsername)).getText().toString();
         email = ((TextView) findViewById(R.id.edtEmail)).getText().toString();
         password = ((TextView) findViewById(R.id.edtPassword)).getText().toString();
-
 
         //Make this nice////////////////////////////////////////////////////////////////////////////
         boolean allGood = true;
@@ -114,28 +126,85 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Passwords don't match
-        if (!password.equals(((TextView) findViewById(R.id.edtReEnter)).getText().toString())) {
+        if (!password.equals(((TextView) findViewById(R.id.edtReEnter)).getText().toString())||password.length()==0) {
             allGood = false;
-        }
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.YELLOW);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.YELLOW);
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Either you password dont match or it cotains a illegal character, being -1 or Enter Key.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
 
+            });
+            bob.create().show();
+        }else{
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.GREEN);
+        }
         //Reserved symbols
-        if (username.contains("-1") || username.contains("\n")) {
+        if (username.length()==0||username.contains("-1") || username.contains("\n")) {
             allGood = false;
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Your username contains a illegal character, being -1,Enter Key or is empty.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
+            ((TextView) findViewById(R.id.edtUsername)).setBackgroundColor(Color.YELLOW);
+        }else{
+            ((TextView) findViewById(R.id.edtUsername)).setBackgroundColor(Color.GREEN);
         }
 
-        if (password.contains("-1") || password.contains("\n")) {
+        if (password.length()==0||password.contains("-1") || password.contains("\n")) {
             allGood = false;
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Your passwords contains a illegal character, being -1 Enter Key or is empty.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.YELLOW);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.YELLOW);
+        }else{
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.GREEN);
         }
 
-        if (fname.contains("-1") || fname.contains("\n")) {
+        if (fname.length()==0||fname.contains("-1") || fname.contains("\n")) {
             allGood = false;
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Your first name contains a illegal character, being -1 Enter Key or is empty.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
+            ((TextView) findViewById(R.id.edtFirstName)).setBackgroundColor(Color.YELLOW);
+        }else{
+            ((TextView) findViewById(R.id.edtFirstName)).setBackgroundColor(Color.GREEN);
         }
 
-        if (lname.contains("-1") || lname.contains("\n")) {
+        if (lname.length()==0||lname.contains("-1") || lname.contains("\n")) {
             allGood = false;
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Your last name contains a illegal character, being -1 Enter Key or is empty.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
+            ((TextView) findViewById(R.id.edtLastName)).setBackgroundColor(Color.YELLOW);
+        }else{
+            ((TextView) findViewById(R.id.edtLastName)).setBackgroundColor(Color.GREEN);
         }
-        if (email.contains("-1") || email.contains("\n")) {
+        if (email.length()==0||email.contains("-1") || email.contains("\n")) {
             allGood = false;
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Error").setMessage("Your email contains a illegal character, being -1 Enter Key or is empty.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
+            ((TextView) findViewById(R.id.edtEmail)).setBackgroundColor(Color.YELLOW);
+        }else{
+            ((TextView) findViewById(R.id.edtEmail)).setBackgroundColor(Color.GREEN);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -143,6 +212,12 @@ public class MainActivity extends AppCompatActivity {
             Walker walker = new Walker(username, password, fname, lname, email);
             TrackYourTrek.getInstance().register(walker);
             onBackPressed();
+            AlertDialog.Builder bob = new AlertDialog.Builder(this);
+            bob.setTitle("Success").setMessage("You have successfully created an account, please use you details to sign in now.");
+            bob.setPositiveButton("Ok", (dialogInterface, i) -> {
+
+            });
+            bob.create().show();
         }
     }
 

@@ -32,6 +32,6 @@ public class Group implements Serializable {
     @Override
     public String toString() {
         int num = ListSearches.findUsersByGroup(groupID).size();
-        return "Group: '" + groupName + "'\t\t\t" + num + " members";
+        return "Group: '" + groupName + " with " + num + " members";
     }
 }

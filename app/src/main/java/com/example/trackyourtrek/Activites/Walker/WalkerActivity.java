@@ -10,10 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trackyourtrek.Activites.Shared.EditWalkerActivity;
 import com.example.trackyourtrek.R;
+import com.example.trackyourtrek.System.Collections.Items.Challenge;
+import com.example.trackyourtrek.System.Collections.Items.ChallengeParticipation;
 import com.example.trackyourtrek.System.Collections.Items.Group;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
 import com.example.trackyourtrek.Utility.ListSearches;
+
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class WalkerActivity extends AppCompatActivity {
     private final int REQ_GROUP = 5;
@@ -91,6 +96,29 @@ public class WalkerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WalkerChallenges.class);
         intent.putExtra("WalkerActivity", currentUser);
         startActivity(intent);
+    }
+    TextView edtSteps;
+    Stack windowID = new Stack();
+    public void toRecord(View view) {
+        setContentView(R.layout.record_steps);
+        edtSteps=findViewById(R.id.edtSteps);
+        windowID.push(R.layout.activity_walker);
+    }
+    public void RecordSteps(View view){
+        //Where to add the record code
+    }
+    public void BackPressed(View view){
+        onBackPressed();
+        onStart();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(windowID.size()==0)
+        super.onBackPressed();
+        else
+            setContentView((int)windowID.pop());
+
     }
 
     public void btnLogoutClick(View view) {
