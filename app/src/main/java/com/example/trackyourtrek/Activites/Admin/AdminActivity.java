@@ -56,10 +56,30 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    public <T extends Serializable> void edit(T item, View v) {
+    public void edit(View view) {
         if (currentVar.equalsIgnoreCase("Walker")) {
             if (selectedItem != null)
                 adapterWalkers.edit((Walker) selectedItem, this);
+
+        } else if (currentVar.equalsIgnoreCase("Challenge")) {
+                Intent intent = new Intent(this, EditChallengeActivity.class);
+                intent.putExtra("challenge", (Challenge)selectedItem);
+                startActivityForResult(intent, REQ_EDIT);
+
+        } else if (currentVar.equalsIgnoreCase("Milestone")) {
+                Intent intent = new Intent(this, EditMilestoneActivity.class);
+                intent.putExtra("milestone", (Milestone)selectedItem);
+                startActivityForResult(intent, REQ_EDIT);
+        }
+    }
+    public <T extends Serializable> void edit(T item, View v) {
+        if (currentVar.equalsIgnoreCase("Walker")) {
+            Runnable r = () -> {
+                adapterWalkers.edit((Walker) selectedItem, this);
+            };
+            recyclerViewSelector(item, v, r);
+           /* if (selectedItem != null)
+                adapterWalkers.edit((Walker) selectedItem, this);*/
 
         } else if (currentVar.equalsIgnoreCase("Challenge")) {
             Runnable r = () -> {
@@ -77,6 +97,7 @@ public class AdminActivity extends AppCompatActivity {
             recyclerViewSelector(item, v, r);
         }
     }
+
 
     public void delete(View view) {
         if (currentVar.equalsIgnoreCase("Walker")) {
@@ -103,7 +124,7 @@ public class AdminActivity extends AppCompatActivity {
         TextView heading = findViewById(R.id.heading);
         heading.setText("Walker User List");
         //Intialize Adapter
-        adapterWalkers = new WalkersAdapter(this);
+        adapterWalkers = new WalkersAdapter(this, this::edit);
 
         // How will the individual items be laid out in the collection view?
         RecyclerView.LayoutManager layoutManager;

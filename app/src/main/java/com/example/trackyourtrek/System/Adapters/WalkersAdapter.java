@@ -1,6 +1,7 @@
 package com.example.trackyourtrek.System.Adapters;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.trackyourtrek.Activites.Shared.EditWalkerActivity;
 import com.example.trackyourtrek.R;
 import com.example.trackyourtrek.System.Collections.Items.Walker;
 import com.example.trackyourtrek.System.TrackYourTrek;
+import com.example.trackyourtrek.Utility.RecyclerViewItemTouch;
 
 import java.util.Random;
 
@@ -44,15 +46,12 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
             imgAvatar = view.findViewById(R.id.imgAvatar);
         }
 
-        public void setWalker(Walker walker) {
+        public void setWalker(Walker walker, RecyclerViewItemTouch<Walker> mLTouch) {
             this.walker = walker;
-            cardView.setOnTouchListener((view, motionEvent) -> {
-                AdminActivity.selectedItem = walker;
-                return true;
-            });
             lblName.setText(walker.getfName() + " " + walker.getlName());
             lblUsername.setText(walker.getUsername()); // force conversion to string
             lblEmail.setText(walker.getEmail());
+            cardView.setOnClickListener(view -> mLTouch.onItemTouch(walker, cardView));
             // Set image. Might not exist depending on the layout used. So check for null
             // values before setting.
             if (imgAvatar != null) {
@@ -94,9 +93,10 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
 
     // The collection of data that this adapter is currently displaying.
     public static AppCompatActivity app;
-
-    public WalkersAdapter(AppCompatActivity appCompatActivity) {
+    private final RecyclerViewItemTouch<Walker> mlistener;
+    public WalkersAdapter(AppCompatActivity appCompatActivity, RecyclerViewItemTouch<Walker> mlistener) {
         app = appCompatActivity;
+        this.mlistener = mlistener;
     }
 
     @NonNull
@@ -111,7 +111,6 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
                 .inflate(R.layout.recyclerview_person,
                         //.inflate(R.layout.recyclerview_person_simple_details,
                         parent, false);
-
         // Put it into a View Holder object and return this.
         WalkerViewHolder pvh = new WalkerViewHolder(view);
         return pvh;
@@ -126,7 +125,7 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         Walker person = TrackYourTrek.getWalkers().get(position);
 
         // Fill the data from person into the view.
-        holder.setWalker(person);
+        holder.setWalker(person,mlistener);
     }
 
 
@@ -140,6 +139,7 @@ public class WalkersAdapter extends RecyclerView.Adapter<WalkersAdapter.WalkerVi
         TrackYourTrek.getWalkers().add(person);
         // In this case, specify WHICH person changed.
         notifyItemChanged(TrackYourTrek.getWalkers().size() - 1);
+        mlistener.onItemTouch(person, null);
     }
 
     public void remove(Object object) {
