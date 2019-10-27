@@ -90,18 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public void register(View view) {
         setContentView(R.layout.register);
         stack.push(R.layout.log_in);
-        TextView edtFirstanem = ((TextView) findViewById(R.id.edtFirstName));
-        edtFirstanem.setOnTouchListener((view1, motionEvent) -> {edtFirstanem.setBackgroundColor(Color.WHITE) ; return true;});
-        TextView lname = ((TextView) findViewById(R.id.edtLastName));
-        lname.setOnTouchListener((view1, motionEvent) -> {lname.setBackgroundColor(Color.WHITE) ; return true;});
-        TextView username = ((TextView) findViewById(R.id.edtUsername));
-        username.setOnTouchListener((view1, motionEvent) -> {username.setBackgroundColor(Color.WHITE) ; return true;});
-        TextView email = ((TextView) findViewById(R.id.edtEmail));
-        email.setOnTouchListener((view1, motionEvent) -> {email.setBackgroundColor(Color.WHITE) ; return true;});
-        TextView password = ((TextView) findViewById(R.id.edtPassword));
-        password.setOnTouchListener((view1, motionEvent) -> {password.setBackgroundColor(Color.WHITE) ; return true;});
-        TextView retype = ((TextView) findViewById(R.id.edtReEnter));
-        retype.setOnTouchListener((view1, motionEvent) -> {retype.setBackgroundColor(Color.WHITE) ; return true;});
+
     }
 
     public void registerUser(View view) {
@@ -123,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
             });
             bob.create().show();
+            return;
         }
 
         //Passwords don't match
@@ -136,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
             });
             bob.create().show();
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.GREEN);
-            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.WHITE);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.WHITE);
         }
         //Reserved symbols
         if (username.length()==0||username.contains("-1") || username.contains("\n")) {
@@ -150,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
             });
             bob.create().show();
             ((TextView) findViewById(R.id.edtUsername)).setBackgroundColor(Color.YELLOW);
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtUsername)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtUsername)).setBackgroundColor(Color.WHITE);
         }
 
         if (password.length()==0||password.contains("-1") || password.contains("\n")) {
@@ -164,9 +156,10 @@ public class MainActivity extends AppCompatActivity {
             bob.create().show();
             ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.YELLOW);
             ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.YELLOW);
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.GREEN);
-            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtPassword)).setBackgroundColor(Color.WHITE);
+            ((TextView) findViewById(R.id.edtReEnter)).setBackgroundColor(Color.WHITE);
         }
 
         if (fname.length()==0||fname.contains("-1") || fname.contains("\n")) {
@@ -178,8 +171,9 @@ public class MainActivity extends AppCompatActivity {
             });
             bob.create().show();
             ((TextView) findViewById(R.id.edtFirstName)).setBackgroundColor(Color.YELLOW);
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtFirstName)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtFirstName)).setBackgroundColor(Color.WHITE);
         }
 
         if (lname.length()==0||lname.contains("-1") || lname.contains("\n")) {
@@ -191,8 +185,9 @@ public class MainActivity extends AppCompatActivity {
             });
             bob.create().show();
             ((TextView) findViewById(R.id.edtLastName)).setBackgroundColor(Color.YELLOW);
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtLastName)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtLastName)).setBackgroundColor(Color.WHITE);
         }
         if (email.length()==0||email.contains("-1") || email.contains("\n")) {
             allGood = false;
@@ -203,8 +198,9 @@ public class MainActivity extends AppCompatActivity {
             });
             bob.create().show();
             ((TextView) findViewById(R.id.edtEmail)).setBackgroundColor(Color.YELLOW);
+            return;
         }else{
-            ((TextView) findViewById(R.id.edtEmail)).setBackgroundColor(Color.GREEN);
+            ((TextView) findViewById(R.id.edtEmail)).setBackgroundColor(Color.WHITE);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
 
